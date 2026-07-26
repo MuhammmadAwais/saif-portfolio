@@ -1,26 +1,35 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Custom embedded Webflow styles and resets */
+::selection {
+  background: #000000;
+  color: #ffffff;
+  text-shadow: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media only screen and (min-width: 1560px) {
+  body {
+    font-size: 18px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  p {
+    font-size: 12.48px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container.is--navbar-bottom {
+  pointer-events: none;
+}
+
+.is--menu-bottom {
+  pointer-events: all;
+}
+
+.pointer-none {
+  pointer-events: none;
 }
