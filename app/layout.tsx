@@ -3,22 +3,24 @@ import "@/reference/css/portfolio-rk.webflow.5dc738e00.min.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wade Warren - Visual Designer",
+  title: "Editing That Brings Stories to Life",
   description:
-    "A Portfolio template made by Rehan Khurshid - Visual Designer based in New York.",
+    "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
   openGraph: {
-    title: "Wade Warren",
-    description: "A Portfolio template made by Rehan Khurshid",
+    title: "Editing That Brings Stories to Life",
+    description:
+      "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wade Warren",
-    description: "A Portfolio template made by Rehan Khurshid",
+    title: "Editing That Brings Stories to Life",
+    description:
+      "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
   },
   icons: {
-    icon: "/images/favicon.png",
-    apple: "/images/app-icon.png",
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
   },
 };
 

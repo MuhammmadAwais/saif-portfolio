@@ -11,7 +11,9 @@ export default function Services() {
           </div>
           <div className="grid_item is--service-text">
             <ScrollReveal as="h2" className="is--service-text-content">
-              ART&nbsp;DIRECTION. BRANDING. ICONOGRAPHY. MOTION. UI/UX. WEBSITES.
+              CINEMATIC VIDEO EDITING &bull; PROFESSIONAL COLOR GRADING &bull;
+              LUXURY REAL ESTATE TOURS &bull; WEDDING TEASERS &bull; FAST-PACED
+              SHOWREELS &bull; HIGH-END DOCUMENTARIES
             </ScrollReveal>
           </div>
         </div>

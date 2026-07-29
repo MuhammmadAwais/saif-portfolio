@@ -35,7 +35,7 @@ export default function BottomNav() {
         </div>
         <div className="grid_item is--menu__bottom">
           <a
-            href="mailto:rehankhurshid1@gmail.com?subject=Hi%20There.%20I%20have%20a%20Project%20for%20you."
+            href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hi%20There.%20I%20have%20a%20Project%20for%20you."
             className="menu_button w-inline-block"
           >
             <div className="nav--button is--bottom">

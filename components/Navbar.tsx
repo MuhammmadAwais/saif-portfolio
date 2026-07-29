@@ -18,17 +18,33 @@ export default function Navbar() {
     <nav className="section is--nav">
       <div className="container is--navbar">
         <div className="grid is--nav-top">
-          <div className="grid_item is--nav-logo">
+          <div
+            className="grid_item is--nav-logo"
+            style={{
+              width: "auto",
+              flex: "0 0 auto",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <Link
               href="/"
               aria-current="page"
               className="nav_logo w-inline-block w--current"
+              style={{ display: "flex", alignItems: "center" }}
             >
               <Image
-                src="/images/intersect.png"
-                alt="logo"
-                width={50}
-                height={50}
+                src="/images/logo.png"
+                alt="Saif Latif Logo"
+                width={2049}
+                height={466}
+                style={{
+                  width: "clamp(140px, 14vw, 175px)",
+                  height: "auto",
+                  objectFit: "contain",
+                  maxWidth: "none",
+                  display: "block",
+                }}
                 priority
               />
             </Link>
@@ -81,7 +97,7 @@ export default function Navbar() {
               </div>
             </a>
             <a
-              href="mailto:rehankhurshid1@gmail.com?subject=Hello.%20I%20have%20got%20a%20Project%20for%20you!"
+              href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hello.%20I%20have%20got%20a%20Project%20for%20you!"
               className="menu_button is--hide w-inline-block"
             >
               <div className="nav--button menu">

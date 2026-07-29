@@ -1,43 +1,197 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import React, { useState, useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 
 export default function About() {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleMute();
+    }
+  };
+
   return (
-    <section id="section-about-me" className="section">
-      <div className="container">
-        <div className="grid is--body">
-          <div className="grid_item is--about__header">
-            <h2 className="heading">ABOUT&nbsp;ME</h2>
-          </div>
-          <div className="grid_item is--about__para-3">
-            <ScrollReveal as="p" className="is--big">
-              Hi, my name is Wade Warren, a multidisciplinary designer &amp; art
-              director based in New York. With a passion for well-crafted
-              (digital) experiences, I believe in beauty to empower ideas.
+    <section id="section-about-me" className="about-section">
+      <div className="about-container">
+        <div className="about-grid">
+          {/* LEFT COLUMN: Editorial Typography & Text Styling */}
+          <div className="about-left-col">
+            <ScrollReveal as="div">
+              {/* Eyebrow Heading with 20px horizontal line */}
+             
+
+              {/* Part 1 Paragraph - Same styling as original body text */}
+              <h2 className="about-heading">Hi, I&rsquo;m Saif Latif.</h2>
+              <p className="about-body-text" style={{ marginBottom: "32px" }}>
+                 I turn raw footage into{" "}
+                <span className="editorial-highlight">
+                  <strong>cinematic assets</strong>
+                </span>{" "}
+                that <em>demand attention</em>. I shape{" "}
+                <span className="editorial-highlight">
+                  <strong>frame-accurate pacing</strong>
+                </span>
+                ,{" "}
+                <span className="editorial-highlight">
+                  <strong>broadcast-level color depth</strong>
+                </span>
+                , and <em>sharp visual rhythm</em> to ensure your message lands perfectly. I know
+                exactly what hooks an audience and how to make a video cut through the noise.
+                If you want a reliable creative partner for{" "}
+                <span className="editorial-highlight">
+                  <strong>top-tier visual storytelling</strong>
+                </span>
+                , you&apos;re in the right place.
+              </p>
+
+              {/* Secondary Call-to-Action (CTA) */}
+              <a href="#section-work" className="about-cta-link">
+                <span>View Selected Work</span>
+                <span className="about-cta-arrow">&rarr;</span>
+                <span className="about-cta-underline" />
+              </a>
             </ScrollReveal>
           </div>
-          <div className="grid_item is--about__img">
-            <Image
-              src="/images/rectangle-202.png"
-              alt="designer photo"
-              width={600}
-              height={700}
-              className="about__img"
-              loading="lazy"
-            />
-          </div>
-          <div className="grid_item is--about__para-4 is--pt-4-58em">
-            <ScrollReveal as="p" delay={0.1} className="is--big">
-              I create delightful and intuitive human-centered experiences at
-              scale through innovation and product strategy
+
+          {/* RIGHT COLUMN: The Inline 16:9 Video */}
+          <div className="about-right-col">
+            <ScrollReveal as="div" delay={0.15}>
+              <div
+                className="about-video-container"
+                onClick={toggleMute}
+                onKeyDown={handleKeyDown}
+                role="button"
+                tabIndex={0}
+                aria-label={isMuted ? "Click to unmute showreel" : "Click to mute showreel"}
+              >
+                <video
+                  ref={videoRef}
+                  src="/Projects/Showreel%20Edit/2026%20Video%20Editor%20Showreel%20COMPRESSED.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="about-video-el"
+                />
+
+                {/* Subtle Glassmorphic Hover / Interactive Unmute Badge */}
+                <div className="about-video-badge">
+                  {isMuted ? (
+                    <>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                        <line x1="23" y1="9" x2="17" y2="15" />
+                        <line x1="17" y1="9" x2="23" y2="15" />
+                      </svg>
+                      <span>Click to Unmute</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                      </svg>
+                      <span>Mute</span>
+                    </>
+                  )}
+                </div>
+              </div>
             </ScrollReveal>
           </div>
-          <div className="grid_item is--about__para-5 is--pt-4-58em">
-            <ScrollReveal as="p" delay={0.2} className="is--big">
-              I&rsquo;m big on branding, art direction, UX, UI, motion graphics
-              and anything else that tells a visual story. If you want to see
-              what that looks like in action, please scroll on.
+        </div>
+
+        {/* ASYMMETRIC EDITORIAL NARRATIVE: Part 2 & Part 3 (No Cards, No Headings) */}
+        <div className="about-editorial-section">
+          {/* Row 1: Right-aligned editorial paragraph (Part 2) */}
+          <div className="about-editorial-row-right">
+            <ScrollReveal as="div" delay={0.1}>
+              <div className="about-editorial-content">
+                {/* Micro-interactive UI/UX Corner Registration Mark & Animated Focal Bar */}
+                <span className="editorial-corner-mark editorial-corner-mark-right">+</span>
+                <span className="editorial-focal-bar editorial-focal-bar-right" />
+
+                <p className="about-editorial-text-lg">
+                  My focus is simple: <strong>high-impact execution</strong>. From{" "}
+                  <span className="editorial-highlight">
+                    <em>luxury property tours</em>
+                  </span>{" "}
+                  and{" "}
+                  <span className="editorial-highlight">
+                    <em>emotional wedding teasers</em>
+                  </span>{" "}
+                  to{" "}
+                  <span className="editorial-highlight">
+                    <strong>high-end documentaries</strong>
+                  </span>
+                  , I build polished visual experiences that keep viewers{" "}
+                  <span className="editorial-highlight">
+                    <strong>locked in</strong>
+                  </span>{" "}
+                  until the very last frame.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Row 2: Left-aligned editorial paragraph (Part 3) */}
+          <div className="about-editorial-row-left">
+            <ScrollReveal as="div" delay={0.2}>
+              <div className="about-editorial-content">
+                {/* Micro-interactive UI/UX Corner Registration Mark & Animated Focal Bar */}
+                <span className="editorial-corner-mark editorial-corner-mark-left">+</span>
+                <span className="editorial-focal-bar editorial-focal-bar-left" />
+
+                <p className="about-editorial-text-md">
+                  I bring{" "}
+                  <span className="editorial-highlight">
+                    <strong>technical mastery</strong>
+                  </span>{" "}
+                  and a <em>director&apos;s eye</em> to every cut, guaranteeing a{" "}
+                  <span className="editorial-highlight">
+                    <strong>seamless workflow</strong>
+                  </span>{" "}
+                  and relentless{" "}
+                  <span className="editorial-highlight">
+                    <em>visual momentum</em>
+                  </span>
+                  . If you&apos;re looking for clean execution that elevates your brand,{" "}
+                  <a href="#section-work" className="about-scroll-trigger">
+                    <strong>scroll down to check out the work</strong>
+                    <span className="about-scroll-trigger-arrow">&darr;</span>
+                  </a>
+                  .
+                </p>
+              </div>
             </ScrollReveal>
           </div>
         </div>

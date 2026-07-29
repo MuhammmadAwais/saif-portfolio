@@ -3,10 +3,8 @@ import Image from "next/image";
 
 export default function Contact() {
   const socialLinks = [
-    { name: "LINKEDIN", url: "https://www.linkedin.com/in/rehankhurshid" },
-    { name: "INSTAGRAM", url: "https://www.instagram.com/rehandesign/" },
-    { name: "DRIBBBLE", url: "https://dribbble.com/rehankhurshid" },
-    { name: "BEHANCE", url: "https://www.behance.net/rehankhurshid" },
+    { name: "LINKEDIN", url: "https://www.linkedin.com/in/saiflatifbusiness" },
+    { name: "INSTAGRAM", url: "https://www.instagram.com/saiflatifbusiness/" },
   ];
 
   return (
@@ -15,14 +13,23 @@ export default function Contact() {
         <div className="grid is--body">
           <div className="grid_item is--contact--header">
             <div className="grid_item is--contact--footer-caption">
-              <h2 className="heading">GET&nbsp;IN&nbsp;TOUCH</h2>
+              <h2 className="heading">
+                LET&rsquo;S&nbsp;BUILD&nbsp;SOMETHING&nbsp;CINEMATIC.
+              </h2>
               <a
-                href="mailto:rehankhurshid1@gmail.com?subject=Hey.%20I%20would%20love%20to%20collaborate%20with%20you%20%20on%20Project.%20%20%5B%5Babout%20your"
-                className="footer-email w-inline-block"
+                href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hey.%20I%20would%20love%20to%20collaborate%20with%20you%20on%20a%20Project!"
+                className="footer-email w-inline-block transition-opacity duration-300 hover:opacity-80"
               >
-                <h1 className="display is--mail">
-                  HELLO@<br />
-                  WARREN.COM
+                <h1
+                  className="display is--mail"
+                  style={{
+                    fontSize: "clamp(1.1rem, 3.6vw, 4.2rem)",
+                    lineHeight: "1",
+                    whiteSpace: "nowrap",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  SAIFLATIFBUSINESS@GMAIL.COM
                 </h1>
               </a>
             </div>
@@ -37,7 +44,7 @@ export default function Contact() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer__link w-inline-block"
+                  className="footer__link w-inline-block group"
                 >
                   <div className="link-wrapper__content">
                     <Image
@@ -45,7 +52,7 @@ export default function Contact() {
                       alt="Right Black Arrow"
                       width={16}
                       height={16}
-                      className="footer-link__arrow left"
+                      className="footer-link__arrow left transition-transform duration-300 group-hover:translate-x-1"
                       loading="lazy"
                     />
                     <h4>{link.name}</h4>
@@ -54,7 +61,7 @@ export default function Contact() {
                       alt="Right Black Arrow"
                       width={16}
                       height={16}
-                      className="footer-link__arrow"
+                      className="footer-link__arrow transition-transform duration-300 group-hover:translate-x-1"
                       loading="lazy"
                     />
                   </div>
