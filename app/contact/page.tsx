@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import Preloader from "@/components/Preloader";
 import ContactPageSection from "@/components/contact-page/ContactPageSection";
+import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "Get in Touch — Saif Latif",
@@ -21,6 +22,7 @@ export default function ContactPage() {
       <div className="body-background"></div>
       <div className="page-wrapper min-h-screen">
         <ContactPageSection />
+        <Contact />
       </div>
       <Preloader />
     </>

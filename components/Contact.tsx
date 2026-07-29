@@ -1,7 +1,32 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { toast } from "sonner";
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+  const emailAddress = "SAIFLATIFBUSINESS@GMAIL.COM";
+
+  const handleCopyEmail = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      setCopied(true);
+      toast.success("Email copied to clipboard! 📋", {
+        description: emailAddress,
+        duration: 3000,
+      });
+      setTimeout(() => {
+        setCopied(false);
+      }, 2500);
+    } catch (err) {
+      console.error("Failed to copy email address:", err);
+      toast.error("Failed to copy email address");
+    }
+  };
+
   const socialLinks = [
     { name: "LINKEDIN", url: "https://www.linkedin.com/in/saiflatifbusiness" },
     { name: "INSTAGRAM", url: "https://www.instagram.com/saiflatifbusiness/" },
@@ -11,31 +36,62 @@ export default function Contact() {
     <footer id="section-contact" className="section is--footer">
       <div className="container is--footer">
         <div className="grid is--body">
+          {/* Top Section & Fluid Email */}
           <div className="grid_item is--contact--header">
-            <div className="grid_item is--contact--footer-caption">
+            <div className="grid_item is--contact--footer-caption w-full">
               <h2 className="heading">
                 LET&rsquo;S&nbsp;BUILD&nbsp;SOMETHING&nbsp;CINEMATIC.
               </h2>
-              <a
-                href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hey.%20I%20would%20love%20to%20collaborate%20with%20you%20on%20a%20Project!"
-                className="footer-email w-inline-block transition-opacity duration-300 hover:opacity-80"
+
+              <button
+                onClick={handleCopyEmail}
+                type="button"
+                className="footer-email w-inline-block text-left bg-transparent border-none p-0 cursor-pointer focus:outline-none w-full group my-2"
+                title="Click to copy email address"
               >
                 <h1
-                  className="display is--mail"
+                  className="display is--mail transition-opacity duration-300 group-hover:opacity-80"
                   style={{
-                    fontSize: "clamp(1.1rem, 3.6vw, 4.2rem)",
+                    fontSize: "clamp(1.8rem, 5.5vw, 7.5rem)",
                     lineHeight: "1",
-                    whiteSpace: "nowrap",
                     letterSpacing: "-0.02em",
+                    textTransform: "uppercase",
                   }}
                 >
-                  SAIFLATIFBUSINESS@GMAIL.COM
+                  {copied ? "COPIED!" : "SAIFLATIFBUSINESS@GMAIL.COM"}
                 </h1>
-              </a>
+
+                <div className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-black/60 font-medium">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 border ${
+                      copied
+                        ? "bg-black text-white border-black shadow-sm"
+                        : "bg-black/5 text-black/80 border-black/15 group-hover:bg-black group-hover:text-white"
+                    }`}
+                  >
+                    {copied ? "COPIED TO CLIPBOARD!" : "CLICK TO COPY EMAIL"}
+                  </span>
+                </div>
+              </button>
+            </div>
+
+            {/* Massive Glassmorphism CTA Link */}
+            <div className="mt-8 mb-6">
+              <Link
+                href="/contact"
+                className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 sm:px-10 sm:py-5 bg-white/40 backdrop-blur-md border border-black/20 rounded-full font-sans font-black text-lg sm:text-xl md:text-2xl text-black uppercase tracking-tight shadow-sm hover:bg-black hover:text-white transition-all duration-300 active:scale-[0.98]"
+              >
+                <span>START A PROJECT</span>
+                <span className="text-xl sm:text-2xl md:text-3xl transition-transform duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5">
+                  ↗
+                </span>
+              </Link>
             </div>
           </div>
+
+          {/* Follow Me Section - Original Webflow Grid Layout */}
           <div className="grid_item is--contact--footer-caption _w-2">
-            <h5 className="heading">FOLLOw&nbsp;ME</h5>
+            <h5 className="heading ml-8">FOLLOw&nbsp;ME</h5>
           </div>
           <div className="grid_item is--contact--footer _w-5">
             {socialLinks.map((link, index) => (
