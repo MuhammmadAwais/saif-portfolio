@@ -30,7 +30,7 @@ export default function Navbar() {
             <Link
               href="/"
               aria-current="page"
-              className="nav_logo w-inline-block w--current"
+              className="nav_logo w-inline-block w--current transition-transform duration-300 hover:scale-105"
               style={{ display: "flex", alignItems: "center" }}
             >
               <Image
@@ -52,7 +52,7 @@ export default function Navbar() {
           <a
             href="#"
             onClick={toggleMenu}
-            className="grid_item is--hamburger w-inline-block"
+            className="grid_item is--hamburger w-inline-block transition-transform duration-300 hover:scale-105 active:scale-95"
           >
             <div className="hamburger_icon">
               <Lottie
@@ -70,45 +70,45 @@ export default function Navbar() {
             <a
               href="/#section-about-me"
               onClick={() => setIsMenuOpen(false)}
-              className="menu_button nav w-inline-block"
+              className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
             >
-              <div className="nav--button menu">
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
                 <div className="menu-button--text">About Me</div>
               </div>
             </a>
             <a
               href="/#section-services"
               onClick={() => setIsMenuOpen(false)}
-              className="menu_button nav w-inline-block"
+              className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
             >
-              <div className="nav--button menu">
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
                 <div className="menu-button--text">Services</div>
               </div>
             </a>
             <a
               href="/#section-work"
               onClick={() => setIsMenuOpen(false)}
-              className="menu_button nav w-inline-block"
+              className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
             >
-              <div className="nav--button menu">
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
                 <div className="menu-button--text">Projects</div>
               </div>
             </a>
             <a
               href="/#section-contact"
               onClick={() => setIsMenuOpen(false)}
-              className="menu_button nav w-inline-block"
+              className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
             >
-              <div className="nav--button menu">
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
                 <div className="menu-button--text">Contact</div>
               </div>
             </a>
             <Link
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
-              className="menu_button w-inline-block"
+              className="menu_button w-inline-block transition-all duration-300 hover:scale-105 active:scale-95"
             >
-              <div className="nav--button menu">
+              <div className="nav--button menu transition-all duration-300 hover:bg-black hover:text-white hover:shadow-lg">
                 <div className="menu-button--text">Get in Touch</div>
               </div>
             </Link>

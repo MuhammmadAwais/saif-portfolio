@@ -97,6 +97,44 @@ export default function Work() {
     return () => ctx.revert();
   }, []);
 
+  // Interactive GSAP Cursor Magnetic & Hover Effect for Project Thumbnails
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const card = e.currentTarget;
+    const imgWrapper = card.querySelector<HTMLElement>(".project-img-wrapper");
+    const img = card.querySelector<HTMLElement>(".proj__img");
+    if (!img || !imgWrapper) return;
+
+    const rect = imgWrapper.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+
+    gsap.to(img, {
+      x: x * 0.08,
+      y: y * 0.08,
+      rotation: (x / rect.width) * 4,
+      scale: 1.08,
+      duration: 0.4,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const card = e.currentTarget;
+    const img = card.querySelector<HTMLElement>(".proj__img");
+    if (!img) return;
+
+    gsap.to(img, {
+      x: 0,
+      y: 0,
+      rotation: 0,
+      scale: 1,
+      duration: 0.7,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
   return (
     <div id="section-work" ref={workRef} className="section w-dyn-list">
       <div role="list" className="w-dyn-items">
@@ -108,13 +146,15 @@ export default function Work() {
           >
             <Link
               href={project.href}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               className="grid is--proj w-inline-block group"
             >
               <div className="grid_item is--project__img">
                 <div
-                  className="project-img-wrapper overflow-hidden"
+                  className="project-img-wrapper overflow-hidden rounded-xl"
                   style={{
-                    willChange: "clip-path, opacity",
+                    willChange: "clip-path, opacity, transform",
                   }}
                 >
                   <Image
@@ -122,8 +162,9 @@ export default function Work() {
                     src={project.src}
                     width={800}
                     height={600}
-                    className="proj__img transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="proj__img object-cover w-full h-full"
                     loading="lazy"
+                    style={{ willChange: "transform" }}
                   />
                 </div>
               </div>
@@ -132,7 +173,9 @@ export default function Work() {
                   <div className="is--pb-0-83em">
                     <p className="is--caption text-black/60">{project.caption}</p>
                   </div>
-                  <h2 className="text-black">{project.title}</h2>
+                  <h2 className="text-black transition-colors duration-300 group-hover:text-neutral-700">
+                    {project.title}
+                  </h2>
                 </div>
                 <div className="link-wrapper__content-copy">
                   <Image
@@ -140,16 +183,18 @@ export default function Work() {
                     alt="Right Black Arrow"
                     width={16}
                     height={16}
-                    className="footer-link__arrow left"
+                    className="footer-link__arrow left transition-transform duration-300 group-hover:translate-x-1"
                     loading="lazy"
                   />
-                  <div className="text-block text-neutral-900">View Case Study</div>
+                  <div className="text-block text-neutral-900 font-medium">
+                    View Case Study
+                  </div>
                   <Image
                     src="/images/vector.svg"
                     alt="Right Black Arrow"
                     width={16}
                     height={16}
-                    className="footer-link__arrow"
+                    className="footer-link__arrow transition-transform duration-300 group-hover:translate-x-1"
                     loading="lazy"
                   />
                 </div>

@@ -50,7 +50,6 @@ export const SERVICES_DATA: ServiceItem[] = [
 
 export default function Services() {
   const {
-    hoveredIndex,
     setRowRef,
     handleMouseEnter,
     handleMouseLeave,
@@ -88,13 +87,16 @@ export default function Services() {
                 onClick={() => handleRowClick(index)}
                 className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 md:py-8 border-b border-black/20 cursor-pointer select-none transition-colors duration-300"
               >
-                {/* Left Column: Number + Title */}
+                {/* Left Column: Number + Title with Smooth Animated Underline */}
                 <div className="flex items-baseline gap-4 sm:gap-6 md:gap-8 pr-4">
                   <span className="font-mono text-xs sm:text-sm md:text-base text-black/40 font-bold tracking-widest shrink-0">
                     {service.id}
                   </span>
-                  <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase text-black leading-none transition-colors duration-300">
-                    {service.title}
+                  <h2 className="relative inline-block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase text-black leading-none transition-colors duration-300">
+                    <span className="relative pb-1 inline-block">
+                      {service.title}
+                      <span className="absolute left-0 bottom-0 w-0 h-[3px] sm:h-[4px] bg-black transition-all duration-500 ease-out group-hover:w-full" />
+                    </span>
                   </h2>
                 </div>
 

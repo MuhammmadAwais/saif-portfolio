@@ -38,7 +38,7 @@ export default function Contact() {
         <div className="grid is--body">
           {/* Top Section & Fluid Email */}
           <div className="grid_item is--contact--header">
-            <div className="grid_item is--contact--footer-caption w-full">
+            <div className="grid_item is--contact--footer-caption w-full pr-4 md:pr-12">
               <h2 className="heading">
                 LET&rsquo;S&nbsp;BUILD&nbsp;SOMETHING&nbsp;CINEMATIC.
               </h2>
@@ -46,16 +46,19 @@ export default function Contact() {
               <button
                 onClick={handleCopyEmail}
                 type="button"
-                className="footer-email w-inline-block text-left bg-transparent border-none p-0 cursor-pointer focus:outline-none w-full group my-2"
+                className="footer-email w-inline-block text-left bg-transparent border-none p-0 cursor-pointer focus:outline-none w-full max-w-full group my-2 overflow-hidden"
                 title="Click to copy email address"
               >
                 <h1
-                  className="display is--mail transition-opacity duration-300 group-hover:opacity-80"
+                  className="display is--mail transition-opacity duration-300 group-hover:opacity-80 max-w-full"
                   style={{
-                    fontSize: "clamp(1.8rem, 5.5vw, 7.5rem)",
-                    lineHeight: "1",
+                    fontSize: "clamp(1.1rem, 3.4vw, 4.2rem)",
+                    lineHeight: "1.1",
                     letterSpacing: "-0.02em",
+                    whiteSpace: "nowrap",
                     textTransform: "uppercase",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                   }}
                 >
                   {copied ? "COPIED!" : "SAIFLATIFBUSINESS@GMAIL.COM"}
@@ -79,7 +82,7 @@ export default function Contact() {
             <div className="mt-8 mb-6">
               <Link
                 href="/contact"
-                className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 sm:px-10 sm:py-5 bg-white/40 backdrop-blur-md border border-black/20 rounded-full font-sans font-black text-lg sm:text-xl md:text-2xl text-black uppercase tracking-tight shadow-sm hover:bg-black hover:text-white transition-all duration-300 active:scale-[0.98]"
+                className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 sm:px-10 sm:py-5 bg-white/40 backdrop-blur-md border border-black/20 rounded-full font-sans font-black text-lg sm:text-xl md:text-2xl text-black uppercase tracking-tight shadow-sm hover:bg-black hover:text-white hover:scale-105 transition-all duration-300 active:scale-95"
               >
                 <span>START A PROJECT</span>
                 <span className="text-xl sm:text-2xl md:text-3xl transition-transform duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5">
@@ -111,7 +114,10 @@ export default function Contact() {
                       className="footer-link__arrow left transition-transform duration-300 group-hover:translate-x-1"
                       loading="lazy"
                     />
-                    <h4>{link.name}</h4>
+                    <h4 className="relative inline-block pb-0.5">
+                      {link.name}
+                      <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-black transition-all duration-300 ease-out group-hover:w-full" />
+                    </h4>
                     <Image
                       src="/images/vector.svg"
                       alt="Right Black Arrow"
