@@ -130,9 +130,9 @@ export default function Work() {
               <div className="grid_item is--project__text-content">
                 <div className="case__content-top">
                   <div className="is--pb-0-83em">
-                    <p className="is--caption">{project.caption}</p>
+                    <p className="is--caption text-black/60">{project.caption}</p>
                   </div>
-                  <h2>{project.title}</h2>
+                  <h2 className="text-black">{project.title}</h2>
                 </div>
                 <div className="link-wrapper__content-copy">
                   <Image
@@ -143,7 +143,7 @@ export default function Work() {
                     className="footer-link__arrow left"
                     loading="lazy"
                   />
-                  <div className="text-block">View Case Study</div>
+                  <div className="text-block text-neutral-900">View Case Study</div>
                   <Image
                     src="/images/vector.svg"
                     alt="Right Black Arrow"

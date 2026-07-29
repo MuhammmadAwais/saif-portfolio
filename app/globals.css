@@ -106,13 +106,13 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(0, 0, 0, 0.6); /* text-black/60 */
 }
 
 .about-eyebrow-line {
   width: 20px;
   height: 2px;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.4); /* text-black/40 */
   display: inline-block;
 }
 
@@ -120,13 +120,13 @@ a {
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
   font-size: 18px;
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.82);
+  color: #171717; /* text-neutral-900 */
   margin-bottom: 24px;
 }
 
 .about-body-text strong {
   font-weight: 700;
-  color: #000000;
+  color: #000000; /* text-black */
 }
 
 .about-body-text em {

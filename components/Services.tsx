@@ -67,11 +67,13 @@ export default function Services() {
         <div className="mb-12 md:mb-16 flex items-center justify-between border-b border-black/10 pb-6">
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-black inline-block"></span>
-            <h1 className="font-mono text-xs md:text-sm tracking-[0.25em] text-black uppercase font-semibold">
+            <h1 className="font-mono text-xs md:text-sm tracking-[0.25em] text-neutral-900 uppercase font-semibold">
               Services & Capabilities
             </h1>
           </div>
-          
+          <span className="font-mono text-xs md:text-sm tracking-widest text-black/40 uppercase hidden sm:inline-block">
+            [ 01 — 06 ]
+          </span>
         </div>
 
         {/* Editorial Vertical Typographic List */}
@@ -99,7 +101,7 @@ export default function Services() {
                 {/* Right Column: Category & CTA/Icon */}
                 <div className="mt-6 md:mt-0 flex items-center justify-between md:justify-end gap-6 shrink-0 self-start md:self-auto w-full md:w-auto">
                   {service.category && (
-                    <span className="font-mono text-xs sm:text-sm tracking-widest uppercase text-black/50 font-medium">
+                    <span className="font-mono text-xs sm:text-sm tracking-widest uppercase text-black/60 font-medium">
                       {service.category}
                     </span>
                   )}
