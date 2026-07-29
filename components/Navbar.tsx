@@ -68,7 +68,8 @@ export default function Navbar() {
             style={{ display: isMenuOpen ? "block" : undefined }}
           >
             <a
-              href="#section-about-me"
+              href="/#section-about-me"
+              onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block"
             >
               <div className="nav--button menu">
@@ -76,34 +77,41 @@ export default function Navbar() {
               </div>
             </a>
             <a
-              href="#section-services"
+              href="/#section-services"
+              onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block"
             >
               <div className="nav--button menu">
                 <div className="menu-button--text">Services</div>
               </div>
             </a>
-            <a href="#section-work" className="menu_button nav w-inline-block">
+            <a
+              href="/#section-work"
+              onClick={() => setIsMenuOpen(false)}
+              className="menu_button nav w-inline-block"
+            >
               <div className="nav--button menu">
                 <div className="menu-button--text">Projects</div>
               </div>
             </a>
             <a
-              href="#section-contact"
+              href="/#section-contact"
+              onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block"
             >
               <div className="nav--button menu">
                 <div className="menu-button--text">Contact</div>
               </div>
             </a>
-            <a
-              href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hello.%20I%20have%20got%20a%20Project%20for%20you!"
-              className="menu_button is--hide w-inline-block"
+            <Link
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="menu_button w-inline-block"
             >
               <div className="nav--button menu">
                 <div className="menu-button--text">Get in Touch</div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

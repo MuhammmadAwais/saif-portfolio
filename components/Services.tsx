@@ -44,7 +44,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     category: "Custom Scope",
     isCTA: true,
     ctaText: "Let's Collaborate",
-    ctaHref: "#section-contact",
+    ctaHref: "/contact",
   },
 ];
 

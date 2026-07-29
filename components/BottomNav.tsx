@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Lottie from "lottie-react";
 import dataJson from "@/reference/js/data.json";
 
 export default function BottomNav() {
   const links = [
-    { href: "#section-about-me", label: "About" },
-    { href: "#section-services", label: "Services" },
-    { href: "#section-work", label: "Work" },
-    { href: "#section-contact", label: "Contact" },
+    { href: "/#section-about-me", label: "About" },
+    { href: "/#section-services", label: "Services" },
+    { href: "/#section-work", label: "Work" },
+    { href: "/#section-contact", label: "Contact" },
   ];
 
   return (
@@ -34,14 +35,14 @@ export default function BottomNav() {
           ))}
         </div>
         <div className="grid_item is--menu__bottom">
-          <a
-            href="mailto:SAIFLATIFBUSINESS@GMAIL.COM?subject=Hi%20There.%20I%20have%20a%20Project%20for%20you."
+          <Link
+            href="/contact"
             className="menu_button w-inline-block"
           >
             <div className="nav--button is--bottom">
               <div className="button--text">Get In Touch</div>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

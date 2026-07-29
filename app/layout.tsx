@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
 import "@/reference/css/portfolio-rk.webflow.5dc738e00.min.css";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
     >
       <body data-w-id="5f075927b33f5315850a8719" suppressHydrationWarning>
         {children}
+        <Toaster position="top-right" theme="dark" richColors closeButton />
       </body>
     </html>
   );
