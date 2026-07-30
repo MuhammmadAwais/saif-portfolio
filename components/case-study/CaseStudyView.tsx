@@ -34,7 +34,6 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isHoveringVideo, setIsHoveringVideo] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // GSAP animations with safe scroll trigger and clearProps so nothing ever stays hidden
   useEffect(() => {
@@ -139,7 +138,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
     }
   }, [caseStudy.videoUrl]);
 
-  // Video Event Handlers
+  // Optimized Video Event Handlers with useCallback
   const handlePlayPause = useCallback((e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (!videoRef.current) return;
@@ -165,27 +164,27 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
     setIsMuted(videoRef.current.muted);
   }, []);
 
-  const handleTimeUpdate = () => {
+  const handleTimeUpdate = useCallback(() => {
     if (!videoRef.current) return;
     setCurrentTime(videoRef.current.currentTime);
     if (videoRef.current.duration && isFinite(videoRef.current.duration)) {
       setDuration(videoRef.current.duration);
     }
-  };
+  }, []);
 
-  const handleLoadedMetadata = () => {
+  const handleLoadedMetadata = useCallback(() => {
     if (!videoRef.current) return;
     if (videoRef.current.duration && isFinite(videoRef.current.duration)) {
       setDuration(videoRef.current.duration);
     }
-  };
+  }, []);
 
-  const handleVideoEnded = () => {
+  const handleVideoEnded = useCallback(() => {
     setIsEnded(true);
     setIsPlaying(false);
-  };
+  }, []);
 
-  const handleReplay = (e: React.MouseEvent) => {
+  const handleReplay = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (!videoRef.current) return;
     videoRef.current.currentTime = 0;
@@ -196,16 +195,9 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
         setIsPlaying(true);
       });
     }
-  };
+  }, []);
 
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const time = parseFloat(e.target.value);
-    if (!videoRef.current) return;
-    videoRef.current.currentTime = time;
-    setCurrentTime(time);
-  };
-
-  const handleSeekClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleSeekClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     const pos = (e.clientX - rect.left) / rect.width;
@@ -213,21 +205,84 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
     if (!videoRef.current) return;
     videoRef.current.currentTime = newTime;
     setCurrentTime(newTime);
-  };
+  }, [duration]);
 
-  const toggleFullscreen = (e: React.MouseEvent) => {
+  const toggleFullscreen = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (!videoContainerRef.current) return;
     if (!document.fullscreenElement) {
       videoContainerRef.current.requestFullscreen().catch((err) => {
         console.error("Error attempting to enable fullscreen:", err);
       });
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullscreen(false);
     }
-  };
+  }, []);
+
+  // ==========================================
+  // 3D MAGNETIC TILTING GSAP EFFECT FOR BENTO CARDS
+  // ==========================================
+  const handleCardMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+
+      const rotateX = -(y / (rect.height / 2)) * 7.5;
+      const rotateY = (x / (rect.width / 2)) * 7.5;
+
+      gsap.to(card, {
+        rotateX,
+        rotateY,
+        scale: 1.015,
+        transformPerspective: 1200,
+        duration: 0.35,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+
+      // Subtle parallax depth on background glow element inside the card
+      const glow = card.querySelector<HTMLElement>(".card-glow");
+      if (glow) {
+        gsap.to(glow, {
+          x: x * 0.15,
+          y: y * 0.15,
+          duration: 0.45,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    },
+    []
+  );
+
+  const handleCardMouseLeave = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const card = e.currentTarget;
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: "power2.out",
+        overwrite: "auto",
+        clearProps: "transform",
+      });
+
+      const glow = card.querySelector<HTMLElement>(".card-glow");
+      if (glow) {
+        gsap.to(glow, {
+          x: 0,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+    },
+    []
+  );
 
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
@@ -279,6 +334,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                 width={20}
                 height={20}
                 className="w-4 h-4 object-contain"
+                sizes="20px"
               />
               <span>DaVinci Resolve 21</span>
             </div>
@@ -500,6 +556,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                 src={caseStudy.thumbnailUrl}
                 alt={caseStudy.title}
                 fill
+                sizes="(max-width: 1200px) 100vw, 1200px"
                 className="object-cover opacity-90"
               />
               {/* Subtle Vignette Overlay so Button Pops */}
@@ -524,8 +581,8 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
         </div>
 
         {/* ==========================================
-            3. BENTO GRID CONTENT SECTION (TRUE GLASSMORPHISM & DEDICATED COLUMN/ROW STRUCTURE)
-            - Row 1: Cards 1 & 2 side-by-side on desktop (2-column grid wrapper)
+            3. BENTO GRID CONTENT SECTION (TRUE GLASSMORPHISM + 3D GSAP TILTING HOVER)
+            - Row 1: Cards 1 & 2 side-by-side on desktop (2-column flexbox wrapper)
             - Row 2: Card 3 full-width (w-full)
             - Row 3: Card 4 full-width (w-full, EXACT same width as Card 3)
             ========================================== */}
@@ -537,11 +594,18 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
           >
             {/* Card 1: The Challenge (Left Column on Desktop) */}
             <div
-              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group"
-              style={{ flex: "1 1 0%", minWidth: 0 }}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-colors duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group cursor-default"
+              style={{
+                flex: "1 1 0%",
+                minWidth: 0,
+                transformStyle: "preserve-3d",
+                willChange: "transform",
+              }}
             >
-              <div className="absolute top-0 right-0 w-44 h-44 bg-black/5 rounded-full blur-3xl pointer-events-none group-hover:bg-black/10 transition-all duration-500"></div>
-              <div>
+              <div className="card-glow absolute top-0 right-0 w-44 h-44 bg-black/5 rounded-full blur-3xl pointer-events-none group-hover:bg-black/10 transition-colors duration-500"></div>
+              <div className="relative z-10">
                 <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
                   01 / THE CHALLENGE
                 </div>
@@ -549,7 +613,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                   {caseStudy.challenge}
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
+              <div className="relative z-10 mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
                 <span>Problem Statement</span>
                 <span>Visual Flow</span>
               </div>
@@ -557,11 +621,18 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
 
             {/* Card 2: The Solution (Right Column on Desktop) */}
             <div
-              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group"
-              style={{ flex: "1 1 0%", minWidth: 0 }}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
+              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-colors duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group cursor-default"
+              style={{
+                flex: "1 1 0%",
+                minWidth: 0,
+                transformStyle: "preserve-3d",
+                willChange: "transform",
+              }}
             >
-              <div className="absolute top-0 right-0 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-500"></div>
-              <div>
+              <div className="card-glow absolute top-0 right-0 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-colors duration-500"></div>
+              <div className="relative z-10">
                 <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
                   02 / THE STRATEGY &amp; SOLUTION
                 </div>
@@ -569,17 +640,22 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                   {caseStudy.solution}
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
+              <div className="relative z-10 mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
                 <span>Editorial Strategy</span>
                 <span>Execution</span>
               </div>
             </div>
           </div>
 
-          {/* Row 2: Card 3 (Toolkit & Tech - 100% Full Width) */}
-          <div className="bento-card w-full mb-6 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group">
-            <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div>
+          {/* Row 2: Card 3 (Toolkit & Tech - 100% Full Width + 3D GSAP Tilt) */}
+          <div
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
+            className="bento-card w-full mb-6 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-colors duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group cursor-default"
+            style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+          >
+            <div className="card-glow absolute -bottom-10 -right-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase shadow-sm">
                   03 / TOOLKIT &amp; TECH
@@ -591,6 +667,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                     width={16}
                     height={16}
                     className="w-3.5 h-3.5 object-contain"
+                    sizes="16px"
                   />
                   <span>Powered by Resolve</span>
                 </div>
@@ -604,7 +681,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                   return (
                     <div
                       key={idx}
-                      className={`group/badge inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full border text-sm font-semibold tracking-wide transition-all duration-300 hover:scale-105 cursor-default shadow-sm ${
+                      className={`group/badge inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full border text-sm font-semibold tracking-wide transition-transform duration-300 hover:scale-105 cursor-default shadow-sm ${
                         isResolve
                           ? "bg-black border-black text-white hover:bg-neutral-800"
                           : "bg-white/70 backdrop-blur-md border-black/20 text-neutral-950 hover:bg-black hover:text-white"
@@ -617,6 +694,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                           width={18}
                           height={18}
                           className="w-4 h-4 object-contain transition-transform duration-300 group-hover/badge:rotate-12"
+                          sizes="18px"
                         />
                       )}
                       <span>{tool}</span>
@@ -626,15 +704,20 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
               </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
+            <div className="relative z-10 mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
               <span>Broadcast Standards</span>
               <span>Advanced Editing</span>
             </div>
           </div>
 
-          {/* Row 3: Card 4 (Impact & Results - 100% Full Width, EXACT SAME WIDTH AS CARD 3) */}
-          <div className="bento-card w-full bg-gradient-to-br from-black/[0.05] via-black/[0.02] to-black/[0.05] backdrop-blur-2xl border-2 border-black/25 hover:border-black/45 transition-all duration-500 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+          {/* Row 3: Card 4 (Impact & Results - 100% Full Width + 3D GSAP Tilt) */}
+          <div
+            onMouseMove={handleCardMouseMove}
+            onMouseLeave={handleCardMouseLeave}
+            className="bento-card w-full bg-gradient-to-br from-black/[0.05] via-black/[0.02] to-black/[0.05] backdrop-blur-2xl border-2 border-black/25 hover:border-black/45 transition-colors duration-500 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group cursor-default"
+            style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+          >
+            <div className="card-glow absolute -top-12 -right-12 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -682,6 +765,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                 src={caseStudy.nextThumbnailUrl}
                 alt={caseStudy.nextTitle}
                 fill
+                sizes="(max-width: 1200px) 100vw, 1200px"
                 className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
               />
               {/* Sleek Dark Edge/Bottom Gradient Vignette so Text is 100% Crisp Without Washing Out Image */}
