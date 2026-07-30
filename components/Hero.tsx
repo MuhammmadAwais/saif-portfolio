@@ -172,7 +172,7 @@ export default function Hero() {
                   imgRefs.current[index] = el;
                 }}
                 className="hero-interactive-img w-full h-full flex items-center justify-center"
-                style={{ willChange: "transform" }}
+                style={{ willChange: "transform", position: "relative" }}
               >
                 <Image
                   src={img.src}

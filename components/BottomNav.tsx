@@ -2,7 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import dataJson from "@/reference/js/data.json";
 
 export default function BottomNav() {

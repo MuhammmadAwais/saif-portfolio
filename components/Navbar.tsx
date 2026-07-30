@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import hamburgerData from "@/reference/js/lottieflow-menu-nav-11-1-000000-easey.json";
 
 export default function Navbar() {
