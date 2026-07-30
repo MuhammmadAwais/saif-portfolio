@@ -40,7 +40,7 @@ export default function BottomNav() {
         <div className="grid_item is--menu__bottom">
           <Link
             href="/contact"
-            className="menu_button w-inline-block group transition-all duration-300 hover:scale-110 active:scale-95"
+            className="menu_button w-inline-block group transition-all duration-300 hover:scale-110 active:scale-95 pointer-events-auto cursor-pointer relative z-50"
           >
             <div className="nav--button is--bottom transition-all duration-300 group-hover:bg-black group-hover:text-white group-hover:shadow-2xl">
               <div className="button--text">Get In Touch</div>

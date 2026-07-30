@@ -28,8 +28,13 @@ a {
   pointer-events: none;
 }
 
-.is--menu-bottom {
-  pointer-events: all;
+.is--menu-bottom,
+.is--menu__bottom,
+.menu_button,
+.nav--button.is--bottom,
+.grid_item.is--menu__bottom * {
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }
 
 .pointer-none {
@@ -428,4 +433,483 @@ a {
     line-height: 1.55;
   }
 }
+
+/* ==========================================================================
+   MOBILE & RESPONSIVE OVERRIDES (APPLIED STRICTLY ON MOBILE BREAKPOINTS)
+   ========================================================================== */
+
+/* 1. NAV & HEADER ALIGNMENT + FULLSCREEN NAV MODAL */
+@media (max-width: 991px) {
+  .section.is--nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 70px !important;
+    max-height: none !important;
+    z-index: 1000 !important;
+    padding: 0.5rem 0 0.75rem 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    transition: background-color 0.35s ease, backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease, box-shadow 0.35s ease !important;
+  }
+
+  .container.is--navbar {
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .grid.is--nav-top {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .grid_item.is--nav-logo {
+    display: flex !important;
+    align-items: center !important;
+    margin: 12px 0 0 18px !important;
+    padding: 0 !important;
+    z-index: 1002 !important;
+    position: relative !important;
+  }
+
+  .nav_logo {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .nav_logo img {
+    width: clamp(120px, 32vw, 155px) !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  .grid_item.is--hamburger {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 12px 18px 0 auto !important;
+    z-index: 1002 !important;
+    position: relative !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 6px !important;
+  }
+
+  /* Mobile Navigation Modal - Hidden by default, Flex when open */
+  .grid_item.is--menu {
+    display: none !important;
+  }
+
+  .grid_item.is--menu.is--open {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background-color: #121212 !important;
+    z-index: 1001 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    padding: 5rem 1.5rem 2.5rem 1.5rem !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow-y: auto !important;
+  }
+
+  /* Hide bottom floating nav bar on mobile when modal is active */
+  body:has(.is--menu-open) .container.is--navbar-bottom,
+  .container.is--navbar-bottom {
+    z-index: 999 !important;
+  }
+  body:has(.is--menu-open) .container.is--navbar-bottom {
+    display: none !important;
+  }
+
+  .grid_item.is--menu .menu_button {
+    display: block !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  .grid_item.is--menu .nav--button.menu {
+    display: flex !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 9999px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .grid_item.is--menu .menu-button--text {
+    font-size: clamp(1.5rem, 6vw, 2.25rem) !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    letter-spacing: -0.02em !important;
+    text-align: center !important;
+  }
+}
+
+/* 2. HERO SECTION TYPOGRAPHY & FLOATING IMAGES PLACEMENT ON MOBILE */
+@media (max-width: 767px) {
+  .section.is--hero {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .container.is--hero {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    padding-top: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .grid.is--body.is--hero {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    position: relative !important;
+    gap: 0.15rem !important;
+    width: 100% !important;
+  }
+
+  .grid_item.is--hero-text {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Replicate desktop's staggered staircase layout on mobile without overflowing the screen */
+  .grid_item.is--hero-text.is--5-6em-left {
+    margin-left: clamp(1.5rem, 11vw, 2.75rem) !important;
+  }
+
+  .grid_item.is--hero-text .display {
+    font-size: clamp(1.9rem, 8.2vw, 2.9rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.03em !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    display: block !important;
+    text-transform: uppercase !important;
+  }
+
+  /* Prevent individual characters from wrapping onto separate lines */
+  .grid_item.is--hero-text h1 span {
+    white-space: nowrap !important;
+  }
+
+  /* Floating 3D Image 1 (Cone - Top Right pocket to the right of WHERE / above RAW CLIPS) */
+  .hero__element-img._1 {
+    position: absolute !important;
+    top: -8% !important;
+    right: 3% !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: clamp(75px, 22vw, 105px) !important;
+    height: clamp(75px, 22vw, 105px) !important;
+    margin: 0 !important;
+    z-index: 5 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    filter: none !important;
+  }
+
+  /* Floating 3D Image 2 (Steel shape 1 - Left pocket beside RAW CLIPS / BECOMES) */
+  .hero__element-img._2 {
+    position: absolute !important;
+    top: 32% !important;
+    left: 0% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: clamp(65px, 18vw, 90px) !important;
+    height: clamp(65px, 18vw, 90px) !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    filter: none !important;
+  }
+
+  /* Floating 3D Image 3 (Steel shape 2 - Bottom Right pocket below CINEMATICS) */
+  .hero__element-img._3 {
+    position: absolute !important;
+    bottom: -6% !important;
+    right: 4% !important;
+    left: auto !important;
+    top: auto !important;
+    width: clamp(70px, 20vw, 95px) !important;
+    height: clamp(70px, 20vw, 95px) !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    filter: none !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .grid_item.is--hero-text .display {
+    font-size: clamp(1.85rem, 8.6vw, 2.5rem) !important;
+    line-height: 1.04 !important;
+  }
+  .grid_item.is--hero-text.is--5-6em-left {
+    margin-left: clamp(1.25rem, 10vw, 2.25rem) !important;
+  }
+  /* Smaller, crisp case study project title on small phones */
+  .case-study-hero-title,
+  #case-study-view h1 {
+    font-size: clamp(1.05rem, 4.4vw, 1.35rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0em !important;
+  }
+  /* Smaller, crisp contact page title on small phones */
+  .contact-page-title,
+  #contact-page-view h1 {
+    font-size: clamp(1.3rem, 5.8vw, 1.7rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+  }
+}
+
+/* 3. BLURRED NAVBAR STRIP ON SCROLL (MOBILE ONLY) */
+@media (max-width: 991px) {
+  .section.is--nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+    transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), -webkit-backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .section.is--nav.is--scrolled {
+    background: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 1px 0 0 rgba(0, 0, 0, 0.08) !important;
+  }
+  .section.is--nav.is--menu-open {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+  }
+}
+
+/* 4. GOLDILOCKS MOBILE TYPOGRAPHY & UI/UX OPTIMIZATIONS (NEVER TOO BIG, NEVER CUT OFF) */
+@media (max-width: 767px) {
+  /* About section heading */
+  .about-heading,
+  #section-about-me h2 {
+    font-size: clamp(1.6rem, 6.5vw, 2.25rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Services & Capabilities Eyebrow - Big & bold on mobile */
+  #section-services h1.font-mono,
+  #section-services h2.font-mono,
+  #section-services .font-mono.uppercase {
+    font-size: clamp(1.15rem, 5vw, 1.5rem) !important;
+    line-height: 1.35 !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.16em !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  /* Services List Item Titles - Big & bold on mobile */
+  #section-services h2:not(.font-mono) {
+    font-size: clamp(1.95rem, 8.5vw, 2.85rem) !important;
+    line-height: 1.05 !important;
+    font-weight: 900 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Work Section Titles */
+  #section-work h2 {
+    font-size: clamp(1.4rem, 5.8vw, 2rem) !important;
+    line-height: 1.15 !important;
+    word-wrap: break-word !important;
+  }
+
+  /* Footer & Contact Section Heading ("LET'S BUILD SOMETHING CINEMATIC.") */
+  .is--contact--footer-caption .heading,
+  #section-contact .heading {
+    font-size: clamp(1.6rem, 6.8vw, 2.4rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.02em !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+  }
+
+  /* Footer Email ("SAIFLATIFBUSINESS@GMAIL.COM") - clean ellipsis if exceeds screen width */
+  .is--contact--footer-caption .display.is--mail,
+  #section-contact .display.is--mail {
+    font-size: clamp(0.92rem, 4.8vw, 1.35rem) !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Case Study Main Project Name on Mobile - smaller, crisp, never breaking words */
+  .case-study-hero-title,
+  #case-study-view h1 {
+    font-size: clamp(1.15rem, 4.8vw, 1.55rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+    word-wrap: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+  }
+
+  /* Contact Page Mobile Responsive Typography (Does not mutate desktop) */
+  .contact-page-title,
+  #contact-page-view h1 {
+    font-size: clamp(1.45rem, 6.5vw, 2.1rem) !important;
+    line-height: 1.12 !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    letter-spacing: -0.02em !important;
+  }
+  
+  .contact-page-form label {
+    font-size: clamp(0.8rem, 3.5vw, 0.95rem) !important;
+    font-weight: 700 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
+  }
+
+  .contact-page-form input,
+  .contact-page-form textarea {
+    font-size: clamp(0.95rem, 4vw, 1.05rem) !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .contact-page-form input::placeholder,
+  .contact-page-form textarea::placeholder {
+    color: rgba(0, 0, 0, 0.55) !important;
+    font-weight: 500 !important;
+  }
+
+  .contact-page-form button {
+    font-size: clamp(0.85rem, 3.8vw, 1rem) !important;
+    padding-top: 1.15rem !important;
+    padding-bottom: 1.15rem !important;
+  }
+}
+
+/* ==========================================================================
+   5. MOBILE-SPECIFIC GORGEOUS ANIMATIONS (EXPLICITLY IN MOBILE - DOES NOT MUTATE DESKTOP)
+   ========================================================================== */
+@media (max-width: 767px) {
+  @keyframes mobileSlideUpFade {
+    0% {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes mobileScaleIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Hero Text & Case Study Title Mobile Animation */
+  .grid_item.is--hero-text .display,
+  #case-study-view h1,
+  .case-study-hero-title {
+    animation: mobileSlideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
+  /* Hero Caption & Badges Mobile Animation */
+  .grid_item.is--hero-caption {
+    animation: mobileSlideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both !important;
+  }
+
+  /* Services & Work List Items Mobile Animation */
+  #section-services .flex-col > div,
+  .grid.is--proj {
+    animation: mobileSlideUpFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  }
+
+  /* Case Study Media & Next Cards Mobile Animation */
+  #case-study-view .rounded-3xl,
+  #case-study-view .rounded-2xl {
+    animation: mobileScaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  }
+
+  /* Silky smooth mobile interactive touch feedback */
+  a:active, button:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.15s ease !important;
+  }
+}
+
 

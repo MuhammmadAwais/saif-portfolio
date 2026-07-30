@@ -34,6 +34,15 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isHoveringVideo, setIsHoveringVideo] = useState(false);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerControlsVisibility = useCallback(() => {
+    setIsHoveringVideo(true);
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    controlsTimeoutRef.current = setTimeout(() => {
+      setIsHoveringVideo(false);
+    }, 2500);
+  }, []);
 
   // GSAP animations with safe scroll trigger and clearProps so nothing ever stays hidden
   useEffect(() => {
@@ -288,6 +297,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
 
   return (
     <div
+      id="case-study-view"
       ref={containerRef}
       className="w-full relative z-10 pt-36 sm:pt-40 md:pt-44 pb-6"
     >
@@ -314,7 +324,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
           </div>
 
           {/* Project Title (CRISP BLACK TYPOGRAPHY) */}
-          <h1 className="animate-header text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-black leading-none">
+          <h1 className="case-study-hero-title animate-header text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-black leading-[1.12] sm:leading-none break-normal">
             {caseStudy.title}
           </h1>
 
@@ -352,9 +362,14 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
             ========================================== */}
         <div
           ref={videoContainerRef}
-          onMouseEnter={() => setIsHoveringVideo(true)}
+          onMouseEnter={triggerControlsVisibility}
+          onMouseMove={triggerControlsVisibility}
           onMouseLeave={() => setIsHoveringVideo(false)}
-          onClick={() => handlePlayPause()}
+          onTouchStart={triggerControlsVisibility}
+          onClick={() => {
+            triggerControlsVisibility();
+            handlePlayPause();
+          }}
           className="relative aspect-video w-full rounded-2xl md:rounded-3xl overflow-hidden border border-black/15 bg-black shadow-2xl group my-8 md:my-10 cursor-pointer select-none"
           style={{ willChange: "transform, opacity" }}
         >
@@ -371,9 +386,10 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
             onPlay={() => {
               setIsPlaying(true);
               setIsEnded(false);
+              triggerControlsVisibility();
             }}
             onPause={() => setIsPlaying(false)}
-            className="w-full h-full object-cover rounded-2xl md:rounded-3xl"
+            className="w-full h-full object-contain bg-black rounded-2xl md:rounded-3xl"
           />
 
           {/* Top Mute / Unmute Quick Overlay Button */}
@@ -433,7 +449,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
             <div
               onClick={(e) => e.stopPropagation()}
               className={`absolute bottom-4 left-4 right-4 z-30 bg-black/75 backdrop-blur-2xl border border-white/20 rounded-2xl px-5 py-3.5 flex flex-col gap-2.5 text-white shadow-2xl transition-all duration-300 ${
-                isHoveringVideo || !isPlaying
+                !isPlaying
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-2 pointer-events-none"
               }`}
@@ -757,7 +773,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
         <div ref={nextProjectRef} className="mb-8">
           <Link
             href={`/work/${caseStudy.nextSlug}`}
-            className="group block relative rounded-3xl overflow-hidden border border-black/20 shadow-2xl p-8 sm:p-12 md:p-16 transition-all duration-500 hover:border-black/40 hover:scale-[1.01]"
+            className="group block relative rounded-3xl overflow-hidden border border-black/20 shadow-2xl p-6 sm:p-10 md:p-16 transition-all duration-500 hover:border-black/40 hover:scale-[1.01]"
           >
             {/* Vivid Next Project Thumbnail Background Image - NO WHITE/FOGGY OVERLAY */}
             <div className="absolute inset-0 z-0 overflow-hidden">
@@ -769,26 +785,26 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
                 className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
               />
               {/* Sleek Dark Edge/Bottom Gradient Vignette so Text is 100% Crisp Without Washing Out Image */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/65 to-black/20"></div>
             </div>
 
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <span className="inline-block text-xs uppercase tracking-widest text-white font-black mb-2 bg-black/60 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20">
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="pr-2">
+                <span className="inline-block text-[11px] sm:text-xs uppercase tracking-widest text-white font-black mb-2 sm:mb-3 bg-black/60 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20">
                   Next Case Study &mdash; {caseStudy.nextCategory}
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white group-hover:text-amber-300 transition-colors drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)]">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white group-hover:text-amber-300 transition-colors drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] break-words leading-tight sm:leading-none">
                   {caseStudy.nextTitle}
                 </h2>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-amber-400 shadow-2xl shrink-0">
+              <div className="flex items-center justify-end sm:justify-center">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-amber-400 shadow-2xl shrink-0">
                   <Image
                     src="/images/vector.svg"
                     alt="Next Project Arrow"
-                    width={22}
-                    height={22}
+                    width={20}
+                    height={20}
                     className="transition-transform duration-300 group-hover:translate-x-1"
                   />
                 </div>

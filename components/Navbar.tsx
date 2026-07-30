@@ -8,6 +8,31 @@ import hamburgerData from "@/reference/js/lottieflow-menu-nav-11-1-000000-easey.
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 5) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -15,7 +40,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="section is--nav">
+    <nav
+      className={`section is--nav ${isMenuOpen ? "is--menu-open" : ""} ${
+        isScrolled ? "is--scrolled" : ""
+      }`}
+    >
       <div className="container is--navbar">
         <div className="grid is--nav-top">
           <div
@@ -30,7 +59,7 @@ export default function Navbar() {
             <Link
               href="/"
               aria-current="page"
-              className="nav_logo w-inline-block w--current transition-transform duration-300 hover:scale-105"
+              className="nav_logo w-inline-block w--current transition-transform duration-300 hover:scale-105 "
               style={{ display: "flex", alignItems: "center" }}
             >
               <Image
@@ -64,8 +93,7 @@ export default function Navbar() {
             <div className="hamburger_desc-text">Menu</div>
           </a>
           <div
-            className="grid_item is--menu"
-            style={{ display: isMenuOpen ? "block" : undefined }}
+            className={`grid_item is--menu ${isMenuOpen ? "is--open" : ""}`}
           >
             <a
               href="/#section-about-me"
