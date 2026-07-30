@@ -42,6 +42,4 @@ export function Computer(props: React.JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/computer-optimized-transformed.glb");
-
 export default React.memo(Computer);

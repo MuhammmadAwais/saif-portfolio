@@ -30,7 +30,7 @@ export default function ContactPageSection() {
           observer.disconnect();
         }
       },
-      { rootMargin: "350px 0px" }
+      { rootMargin: "250px 0px" }
     );
     if (canvasContainerRef.current) {
       observer.observe(canvasContainerRef.current);

@@ -95,12 +95,12 @@ export default function Work() {
       });
     }, workRef);
 
-    const rafId = requestAnimationFrame(() => {
+    const timerId = setTimeout(() => {
       ScrollTrigger.refresh();
-    });
+    }, 300);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
       ctx.revert();
     };
   }, []);

@@ -139,12 +139,12 @@ export default function Hero() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    const rafId = requestAnimationFrame(() => {
+    const timerId = setTimeout(() => {
       ScrollTrigger.refresh();
-    });
+    }, 300);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
       window.removeEventListener("mousemove", handleMouseMove);
       ctx.revert();
     };
@@ -183,6 +183,7 @@ export default function Hero() {
                   height={img.height}
                   className="w-full h-full object-contain"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   suppressHydrationWarning
                 />
               </div>

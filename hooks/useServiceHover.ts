@@ -18,6 +18,7 @@ export function useServiceHover() {
           duration: 0.35,
           ease: "power2.out",
           overwrite: "auto",
+          force3D: true,
         });
       } else if (index === hoveredIndex) {
         gsap.to(row, {
@@ -26,6 +27,7 @@ export function useServiceHover() {
           duration: 0.35,
           ease: "power2.out",
           overwrite: "auto",
+          force3D: true,
         });
       } else {
         gsap.to(row, {
@@ -34,6 +36,7 @@ export function useServiceHover() {
           duration: 0.35,
           ease: "power2.out",
           overwrite: "auto",
+          force3D: true,
         });
       }
     });

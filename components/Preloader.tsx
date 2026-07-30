@@ -4,16 +4,33 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-import loaderAnimation from "@/reference/js/333-loader-4-edited.json";
 
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const [animationData, setAnimationData] = useState<unknown>(null);
 
   useEffect(() => {
+    let isMounted = true;
+    import("@/reference/js/333-loader-4-edited.json")
+      .then((mod) => {
+        if (isMounted) {
+          setAnimationData(mod.default || mod);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load preloader animation", err);
+      });
+
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      if (isMounted) {
+        setIsLoading(false);
+      }
     }, 2000);
-    return () => clearTimeout(timer);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, []);
 
   if (!isLoading) {
@@ -31,12 +48,14 @@ export default function Preloader() {
     >
       <div className="preloader-content" suppressHydrationWarning>
         <div className="lottie-animation-2" suppressHydrationWarning>
-          <Lottie
-            animationData={loaderAnimation}
-            loop={false}
-            autoplay={true}
-            onComplete={() => setIsLoading(false)}
-          />
+          {animationData ? (
+            <Lottie
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              onComplete={() => setIsLoading(false)}
+            />
+          ) : null}
         </div>
       </div>
     </div>
