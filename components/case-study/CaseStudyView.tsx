@@ -524,50 +524,60 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
         </div>
 
         {/* ==========================================
-            3. BENTO GRID CONTENT SECTION (TRUE GLASSMORPHISM & COLUMN/ROW LAYOUT)
-            - Cards 1 & 2: 2-column layout side-by-side (col-span-1 each)
-            - Cards 3 & 4: Full-width rows (col-span-1 md:col-span-2)
+            3. BENTO GRID CONTENT SECTION (TRUE GLASSMORPHISM & DEDICATED COLUMN/ROW STRUCTURE)
+            - Row 1: Cards 1 & 2 side-by-side on desktop (2-column grid wrapper)
+            - Row 2: Card 3 full-width (w-full)
+            - Row 3: Card 4 full-width (w-full, EXACT same width as Card 3)
             ========================================== */}
-        <div
-          ref={bentoGridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 md:my-12"
-        >
-          {/* Card 1: The Challenge (Left Column on Desktop) */}
-          <div className="bento-card col-span-1 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-44 h-44 bg-black/5 rounded-full blur-3xl pointer-events-none group-hover:bg-black/10 transition-all duration-500"></div>
-            <div>
-              <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
-                01 / THE CHALLENGE
+        <div ref={bentoGridRef} className="my-10 md:my-12 w-full">
+          {/* Row 1: Challenge & Solution Side-by-Side in Columns on Desktop (Flexbox guaranteed 2-col) */}
+          <div
+            className="flex flex-col md:flex-row gap-6 w-full mb-6 items-stretch"
+            style={{ display: "flex", width: "100%" }}
+          >
+            {/* Card 1: The Challenge (Left Column on Desktop) */}
+            <div
+              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group"
+              style={{ flex: "1 1 0%", minWidth: 0 }}
+            >
+              <div className="absolute top-0 right-0 w-44 h-44 bg-black/5 rounded-full blur-3xl pointer-events-none group-hover:bg-black/10 transition-all duration-500"></div>
+              <div>
+                <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                  01 / THE CHALLENGE
+                </div>
+                <p className="text-neutral-950 leading-relaxed text-base md:text-lg font-medium">
+                  {caseStudy.challenge}
+                </p>
               </div>
-              <p className="text-neutral-950 leading-relaxed text-base md:text-lg font-medium">
-                {caseStudy.challenge}
-              </p>
+              <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
+                <span>Problem Statement</span>
+                <span>Visual Flow</span>
+              </div>
             </div>
-            <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
-              <span>Problem Statement</span>
-              <span>Visual Flow</span>
+
+            {/* Card 2: The Solution (Right Column on Desktop) */}
+            <div
+              className="bento-card flex-1 w-full md:w-1/2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group"
+              style={{ flex: "1 1 0%", minWidth: 0 }}
+            >
+              <div className="absolute top-0 right-0 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-500"></div>
+              <div>
+                <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                  02 / THE STRATEGY &amp; SOLUTION
+                </div>
+                <p className="text-neutral-950 leading-relaxed text-base md:text-lg font-medium">
+                  {caseStudy.solution}
+                </p>
+              </div>
+              <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
+                <span>Editorial Strategy</span>
+                <span>Execution</span>
+              </div>
             </div>
           </div>
 
-          {/* Card 2: The Solution (Right Column on Desktop) */}
-          <div className="bento-card col-span-1 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-500"></div>
-            <div>
-              <div className="inline-block px-3.5 py-1.5 rounded-full bg-black text-white text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
-                02 / THE STRATEGY &amp; SOLUTION
-              </div>
-              <p className="text-neutral-950 leading-relaxed text-base md:text-lg font-medium">
-                {caseStudy.solution}
-              </p>
-            </div>
-            <div className="mt-8 pt-4 border-t border-black/15 flex items-center justify-between text-xs text-neutral-600 uppercase tracking-wider font-bold">
-              <span>Editorial Strategy</span>
-              <span>Execution</span>
-            </div>
-          </div>
-
-          {/* Card 3: Technical Tools & Execution (Full-Width Row) */}
-          <div className="bento-card col-span-1 md:col-span-2 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group">
+          {/* Row 2: Card 3 (Toolkit & Tech - 100% Full Width) */}
+          <div className="bento-card w-full mb-6 bg-black/[0.04] backdrop-blur-2xl border border-black/15 hover:border-black/30 transition-all duration-300 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-lg hover:shadow-2xl relative overflow-hidden group">
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div>
               <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -622,8 +632,8 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
             </div>
           </div>
 
-          {/* Card 4: High-Converting Impact & Results (Full-Width Accent Row) */}
-          <div className="bento-card col-span-1 md:col-span-2 bg-gradient-to-br from-black/[0.05] via-black/[0.02] to-black/[0.05] backdrop-blur-2xl border-2 border-black/25 hover:border-black/45 transition-all duration-500 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+          {/* Row 3: Card 4 (Impact & Results - 100% Full Width, EXACT SAME WIDTH AS CARD 3) */}
+          <div className="bento-card w-full bg-gradient-to-br from-black/[0.05] via-black/[0.02] to-black/[0.05] backdrop-blur-2xl border-2 border-black/25 hover:border-black/45 transition-all duration-500 rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
             <div className="absolute -top-12 -right-12 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
 
             <div className="relative z-10">
@@ -659,43 +669,43 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
         </div>
 
         {/* ==========================================
-            5. NEXT PROJECT CARD: VIVID THUMBNAIL BACKGROUND + HIGH CONTRAST TYPOGRAPHY
+            5. NEXT PROJECT CARD: VIVID THUMBNAIL BACKGROUND WITHOUT FOGGY OVERLAY
             ========================================== */}
         <div ref={nextProjectRef} className="mb-8">
           <Link
             href={`/work/${caseStudy.nextSlug}`}
             className="group block relative rounded-3xl overflow-hidden border border-black/20 shadow-2xl p-8 sm:p-12 md:p-16 transition-all duration-500 hover:border-black/40 hover:scale-[1.01]"
           >
-            {/* Vivid Next Project Thumbnail Background Image */}
+            {/* Vivid Next Project Thumbnail Background Image - NO WHITE/FOGGY OVERLAY */}
             <div className="absolute inset-0 z-0 overflow-hidden">
               <Image
                 src={caseStudy.nextThumbnailUrl}
                 alt={caseStudy.nextTitle}
                 fill
-                className="object-cover opacity-65 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700 ease-out"
+                className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
               />
-              {/* Sleek Frosted Glass Gradient Overlay for Perfect Readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-white/80 backdrop-blur-[2px]"></div>
+              {/* Sleek Dark Edge/Bottom Gradient Vignette so Text is 100% Crisp Without Washing Out Image */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10"></div>
             </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
-                <span className="inline-block text-xs uppercase tracking-widest text-neutral-800 font-black mb-2 bg-white/70 backdrop-blur-md px-3.5 py-1 rounded-full border border-black/10">
+                <span className="inline-block text-xs uppercase tracking-widest text-white font-black mb-2 bg-black/60 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20">
                   Next Case Study &mdash; {caseStudy.nextCategory}
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black group-hover:text-neutral-950 transition-colors drop-shadow-sm">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white group-hover:text-amber-300 transition-colors drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)]">
                   {caseStudy.nextTitle}
                 </h2>
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-black text-white flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-neutral-900 shadow-xl shrink-0">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-amber-400 shadow-2xl shrink-0">
                   <Image
                     src="/images/vector.svg"
                     alt="Next Project Arrow"
                     width={22}
                     height={22}
-                    className="invert transition-transform duration-300 group-hover:translate-x-1"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
                   />
                 </div>
               </div>
