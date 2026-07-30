@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.config({ force3D: true });
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -138,7 +139,12 @@ export default function Hero() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", handleMouseMove);
       ctx.revert();
     };

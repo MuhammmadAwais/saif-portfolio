@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
@@ -18,7 +18,25 @@ const ContactExperience = dynamic(() => import("./ContactExperience"), {
 
 export default function ContactPageSection() {
   const formRef = useRef<HTMLFormElement>(null);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
+  const [isInViewport, setIsInViewport] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "350px 0px" }
+    );
+    if (canvasContainerRef.current) {
+      observer.observe(canvasContainerRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -201,8 +219,17 @@ export default function ContactPageSection() {
 
           {/* Right Column: Interactive 3D Canvas */}
           <ScrollReveal as="div" delay={0.15} className="w-full lg:w-7/12 min-h-[300px] sm:min-h-[380px] md:min-h-[560px] flex">
-            <div className="w-full h-full min-h-[300px] sm:min-h-[380px] md:min-h-[560px] bg-gradient-to-br from-neutral-900 via-black to-neutral-950 rounded-3xl overflow-hidden border border-black/20 shadow-2xl hover:cursor-grab active:cursor-grabbing relative">
-              <ContactExperience />
+            <div
+              ref={canvasContainerRef}
+              className="w-full h-full min-h-[300px] sm:min-h-[380px] md:min-h-[560px] bg-gradient-to-br from-neutral-900 via-black to-neutral-950 rounded-3xl overflow-hidden border border-black/20 shadow-2xl hover:cursor-grab active:cursor-grabbing relative"
+            >
+              {isInViewport ? (
+                <ContactExperience />
+              ) : (
+                <div className="w-full h-full min-h-[300px] sm:min-h-[380px] md:min-h-[560px] flex items-center justify-center text-white/50 font-mono text-xs tracking-widest uppercase">
+                  Scroll to view 3D Studio Showcase
+                </div>
+              )}
             </div>
           </ScrollReveal>
         </div>

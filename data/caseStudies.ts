@@ -6,6 +6,7 @@ export interface CaseStudy {
   role: string;
   duration: string;
   videoUrl: string;
+  fallbackVideoUrl?: string;
   thumbnailUrl: string;
   challenge: string;
   solution: string;
@@ -32,6 +33,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     duration: "1 MIN 02 SEC",
     videoUrl:
       "https://b6yk0mmj0fw8dfck.private.blob.vercel-storage.com/2026%20Video%20Editor%20Showreel%20COMPRESSED.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfYjZ5SzBtTWowRnc4ZGZDayIsIm93bmVySWQiOiJ0ZWFtX1VaNFdoQW5tVDdNQ0NmdloxNDFxZHNKNiIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzg1NDQ1NjA3MzExLCJpYXQiOjE3ODU0MDI0MDc0ODV9.MCxp-wGT9nOXh7fu8AoeS2got4SFRdL84w3slvxP2_c&vercel-blob-signature=5S1oxLGNQrtHRDOl33stMgGMcohpMeDQKjKRPIeZZPQ",
+    fallbackVideoUrl: "/videos/showreel.mp4",
     thumbnailUrl: "/images/projects/showreel.png",
     challenge:
       "The task involved blending various formats, including quick social media cuts, brand advertisements, and wedding films, into a cohesive showcase. We needed to captivate viewers instantly and maintain their engagement throughout the 1 minute and 2 seconds runtime.",
@@ -66,6 +68,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     duration: "1 MIN 30 SEC",
     videoUrl:
       "https://b6yk0mmj0fw8dfck.private.blob.vercel-storage.com/Cinematic%20Real%20Estate%20Edit%20COMPRESSED.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfYjZ5SzBtTWowRnc4ZGZDayIsIm93bmVySWQiOiJ0ZWFtX1VaNFdoQW5tVDdNQ0NmdloxNDFxZHNKNiIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzg1NDQ1NjI0NTQ1LCJpYXQiOjE3ODU0MDI0MjQ3Mzh9.d24Sgd6DsMV5jWF7OQkd21oq3GGdivX3USg9FUiVkOo&vercel-blob-signature=mv9_6SiWm7Rx--53ByG9iFuyHkvM5AaPI9LhGMeBnI0",
+    fallbackVideoUrl: "/videos/real-estate.mp4",
     thumbnailUrl: "/images/projects/real-estate.jpg",
     challenge:
       "Architectural footage can often appear static, leading to a flat and repetitive viewing experience. We aimed to create a warm, welcoming, and immersive environment that felt more than just “staring at walls.”",
@@ -100,6 +103,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     duration: "45 SEC",
     videoUrl:
       "https://b6yk0mmj0fw8dfck.private.blob.vercel-storage.com/Color%20Correction%20&%20Grading%20Before%20&%20After%20Edit%20COMPRESSED.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfYjZ5SzBtTWowRnc4ZGZDayIsIm93bmVySWQiOiJ0ZWFtX1VaNFdoQW5tVDdNQ0NmdloxNDFxZHNKNiIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzg1NDQ1NjM5OTU0LCJpYXQiOjE3ODU0MDI0NDAxMjV9.xMI72iXsDjsIOzzxkKnQmfyD1g8NUIMIjFRe1VdwuYM&vercel-blob-signature=aFibqEl3J9gRbFZ0gRkaoqA55vjn7qxzagqSJzwneFo",
+    fallbackVideoUrl: "/videos/color-grading.mp4",
     thumbnailUrl: "/images/projects/color-grading.jpg",
     challenge:
       "Working with varying natural light conditions throughout the day posed a challenge. We needed to ensure the final result felt cohesive and stylish while preserving the beauty of the setting.",
@@ -135,6 +139,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     duration: "1 MIN 15 SEC",
     videoUrl:
       "https://b6yk0mmj0fw8dfck.private.blob.vercel-storage.com/The%20Wedding%20Teaser%20Film%20COMPRESSED.mp4?vercel-blob-delegation=eyJzdG9yZUlkIjoic3RvcmVfYjZ5SzBtTWowRnc4ZGZDayIsIm93bmVySWQiOiJ0ZWFtX1VaNFdoQW5tVDdNQ0NmdloxNDFxZHNKNiIsInBhdGhuYW1lIjoiKiIsIm9wZXJhdGlvbnMiOlsiZ2V0IiwiaGVhZCJdLCJ2YWxpZFVudGlsIjoxNzg1NDQ1NjY1NDUzLCJpYXQiOjE3ODU0MDI0NjU2MjJ9.ExLCJvmDPSzJUnajAmqbiAyONofPMRTwvA5cSxHictE&vercel-blob-signature=k2IR4EuXF8a8Uh4PKBts930UjqyOEvYlpY-LuB-mmGA",
+    fallbackVideoUrl: "/videos/wedding.mp4",
     thumbnailUrl: "/images/projects/wedding.png",
     challenge:
       "The goal was to transform hours of multi-camera coverage into a cohesive, fast-paced teaser without sacrificing the intimate feel of the ceremony. We needed to maintain the heartfelt moments without feeling rushed.",

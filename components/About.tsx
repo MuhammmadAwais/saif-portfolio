@@ -1,11 +1,20 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import ScrollReveal from "./ScrollReveal";
+import { CASE_STUDIES } from "@/data/caseStudies";
 
 export default function About() {
   const [isMuted, setIsMuted] = useState(true);
+  const [videoSrc, setVideoSrc] = useState(CASE_STUDIES[0].videoUrl);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleVideoError = useCallback(() => {
+    if (videoSrc !== "/videos/showreel.mp4") {
+      console.warn("Vercel Blob URL failed in About - switching to clutch fallback /videos/showreel.mp4");
+      setVideoSrc("/videos/showreel.mp4");
+    }
+  }, [videoSrc]);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -77,11 +86,13 @@ export default function About() {
               >
                 <video
                   ref={videoRef}
-                  src="/Projects/Showreel%20Edit/2026%20Video%20Editor%20Showreel%20COMPRESSED.mp4"
+                  src={videoSrc}
+                  onError={handleVideoError}
                   autoPlay
                   loop
                   muted
                   playsInline
+                  preload="none"
                   className="about-video-el"
                 />
 

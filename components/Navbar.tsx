@@ -67,6 +67,7 @@ export default function Navbar() {
                 alt="Saif Latif Logo"
                 width={2049}
                 height={466}
+                priority
                 style={{
                   width: "clamp(140px, 14vw, 175px)",
                   height: "auto",
@@ -74,7 +75,6 @@ export default function Navbar() {
                   maxWidth: "none",
                   display: "block",
                 }}
-                priority
               />
             </Link>
           </div>

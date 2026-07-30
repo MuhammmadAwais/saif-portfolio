@@ -2,8 +2,28 @@
 
 import React, { Suspense, useState, useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import Computer from "./Computer";
+
+const WebGLCleaner: React.FC = () => {
+  const { gl, scene } = useThree();
+  useEffect(() => {
+    return () => {
+      scene.traverse((object: any) => {
+        if (object.geometry) object.geometry.dispose();
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((mat: any) => mat.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      });
+      gl.dispose();
+    };
+  }, [gl, scene]);
+  return null;
+};
 
 const ContactExperience: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -68,6 +88,7 @@ const ContactExperience: React.FC = () => {
       gl={{ antialias: true, powerPreference: isMobile ? "default" : "high-performance" }}
       className="w-full h-full"
     >
+      <WebGLCleaner />
       <ambientLight intensity={0.7} color="#ffffff" />
 
       <directionalLight position={[5, 5, 3]} intensity={2.5} color="#ffffff" />

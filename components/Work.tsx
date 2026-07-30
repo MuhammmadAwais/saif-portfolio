@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.config({ force3D: true });
 
 interface ProjectItem {
   href: string;
@@ -94,7 +95,14 @@ export default function Work() {
       });
     }, workRef);
 
-    return () => ctx.revert();
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      ctx.revert();
+    };
   }, []);
 
   // Interactive GSAP Cursor Magnetic & Hover Effect for Project Thumbnails
