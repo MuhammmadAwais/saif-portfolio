@@ -21,28 +21,28 @@ export default function Work() {
 
   const projects: ProjectItem[] = [
     {
-      href: "#section-work",
+      href: "/work/showreel",
       caption: "SHOWREEL",
       title: "High-Velocity Post-Production Reel",
       src: "/images/projects/showreel.png",
       alt: "High-Velocity Post-Production Reel",
     },
     {
-      href: "#section-work",
+      href: "/work/premium-real-estate-tour",
       caption: "REAL ESTATE",
       title: "High-Impact Property Tour",
       src: "/images/projects/real-estate.jpg",
       alt: "High-Impact Property Tour",
     },
     {
-      href: "#section-work",
+      href: "/work/cinematic-color-grading",
       caption: "COLOR GRADING",
       title: "Nature & Atmosphere Grading",
       src: "/images/projects/color-grading.jpg",
       alt: "Nature & Atmosphere Grading",
     },
     {
-      href: "#section-work",
+      href: "/work/cinematic-wedding-teaser",
       caption: "WEDDING FILM",
       title: "Cinematic Emotional Teaser",
       src: "/images/projects/wedding.png",
