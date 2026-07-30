@@ -200,8 +200,8 @@ export default function ContactPageSection() {
           </ScrollReveal>
 
           {/* Right Column: Interactive 3D Canvas */}
-          <ScrollReveal as="div" delay={0.15} className="w-full lg:w-7/12 min-h-[340px] sm:min-h-[420px] md:min-h-[560px] flex">
-            <div className="w-full h-full min-h-[340px] sm:min-h-[420px] md:min-h-[560px] bg-gradient-to-br from-neutral-900 via-black to-neutral-950 rounded-3xl overflow-hidden border border-black/20 shadow-2xl hover:cursor-grab active:cursor-grabbing relative">
+          <ScrollReveal as="div" delay={0.15} className="w-full lg:w-7/12 min-h-[300px] sm:min-h-[380px] md:min-h-[560px] flex">
+            <div className="w-full h-full min-h-[300px] sm:min-h-[380px] md:min-h-[560px] bg-gradient-to-br from-neutral-900 via-black to-neutral-950 rounded-3xl overflow-hidden border border-black/20 shadow-2xl hover:cursor-grab active:cursor-grabbing relative">
               <ContactExperience />
             </div>
           </ScrollReveal>
