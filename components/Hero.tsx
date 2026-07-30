@@ -151,8 +151,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="section is--hero">
-      <div className="container is--hero">
+    <section ref={heroRef} className="section is--hero" suppressHydrationWarning>
+      <div className="container is--hero" suppressHydrationWarning>
         <div
           className="grid_item is--sticky-logo"
           style={{
@@ -161,18 +161,20 @@ export default function Hero() {
             display: "flex",
             alignItems: "center",
           }}
+          suppressHydrationWarning
         >
      
         </div>
-        <div className="grid is--body is--hero">
+        <div className="grid is--body is--hero" suppressHydrationWarning>
           {floatingImages.map((img, index) => (
-            <div key={index} className={img.className}>
+            <div key={index} className={img.className} suppressHydrationWarning>
               <div
                 ref={(el) => {
                   imgRefs.current[index] = el;
                 }}
                 className="hero-interactive-img w-full h-full flex items-center justify-center"
                 style={{ willChange: "transform", position: "relative" }}
+                suppressHydrationWarning
               >
                 <Image
                   src={img.src}
@@ -181,6 +183,7 @@ export default function Hero() {
                   height={img.height}
                   className="w-full h-full object-contain"
                   priority
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -190,13 +193,15 @@ export default function Hero() {
             <div
               key={index}
               className={`grid_item is--hero-text ${item.leftClass}`.trim()}
+              suppressHydrationWarning
             >
-              <h1 className="display" aria-label={item.text}>
+              <h1 className="display" aria-label={item.text} suppressHydrationWarning>
                 {item.text.split("").map((char, charIdx) => (
                   <span
                     key={charIdx}
                     className="inline-block overflow-hidden"
                     style={{ verticalAlign: "bottom" }}
+                    suppressHydrationWarning
                   >
                     <span
                       className="hero-char inline-block"
@@ -206,6 +211,7 @@ export default function Hero() {
                           "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
                         willChange: "transform, clip-path",
                       }}
+                      suppressHydrationWarning
                     >
                       {char === " " ? "\u00A0" : char}
                     </span>

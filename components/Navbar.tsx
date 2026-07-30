@@ -46,9 +46,10 @@ export default function Navbar() {
       className={`section is--nav ${isMenuOpen ? "is--menu-open" : ""} ${
         isScrolled ? "is--scrolled" : ""
       }`}
+      suppressHydrationWarning
     >
-      <div className="container is--navbar">
-        <div className="grid is--nav-top">
+      <div className="container is--navbar" suppressHydrationWarning>
+        <div className="grid is--nav-top" suppressHydrationWarning>
           <div
             className="grid_item is--nav-logo"
             style={{
@@ -57,12 +58,14 @@ export default function Navbar() {
               display: "flex",
               alignItems: "center",
             }}
+            suppressHydrationWarning
           >
             <Link
               href="/"
               aria-current="page"
               className="nav_logo w-inline-block w--current transition-transform duration-300 hover:scale-105 "
               style={{ display: "flex", alignItems: "center" }}
+              suppressHydrationWarning
             >
               <Image
                 src="/images/logo.png"
@@ -77,6 +80,7 @@ export default function Navbar() {
                   maxWidth: "none",
                   display: "block",
                 }}
+                suppressHydrationWarning
               />
             </Link>
           </div>
@@ -84,62 +88,69 @@ export default function Navbar() {
             href="#"
             onClick={toggleMenu}
             className="grid_item is--hamburger w-inline-block transition-transform duration-300 hover:scale-105 active:scale-95"
+            suppressHydrationWarning
           >
-            <div className="hamburger_icon">
+            <div className="hamburger_icon" suppressHydrationWarning>
               <Lottie
                 animationData={hamburgerData}
                 loop={false}
                 autoplay={false}
               />
             </div>
-            <div className="hamburger_desc-text">Menu</div>
+            <div className="hamburger_desc-text" suppressHydrationWarning>Menu</div>
           </a>
           <div
             className={`grid_item is--menu ${isMenuOpen ? "is--open" : ""}`}
+            suppressHydrationWarning
           >
             <a
               href="/#section-about-me"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
+              suppressHydrationWarning
             >
-              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
-                <div className="menu-button--text">About Me</div>
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>About Me</div>
               </div>
             </a>
             <a
               href="/#section-services"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
+              suppressHydrationWarning
             >
-              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
-                <div className="menu-button--text">Services</div>
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>Services</div>
               </div>
             </a>
             <a
               href="/#section-work"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
+              suppressHydrationWarning
             >
-              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
-                <div className="menu-button--text">Projects</div>
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>Projects</div>
               </div>
             </a>
             <a
               href="/#section-contact"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
+              suppressHydrationWarning
             >
-              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white">
-                <div className="menu-button--text">Contact</div>
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>Contact</div>
               </div>
             </a>
             <Link
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button w-inline-block transition-all duration-300 hover:scale-105 active:scale-95"
+              suppressHydrationWarning
             >
-              <div className="nav--button menu transition-all duration-300 hover:bg-black hover:text-white hover:shadow-lg">
-                <div className="menu-button--text">Get in Touch</div>
+              <div className="nav--button menu transition-all duration-300 hover:bg-black hover:text-white hover:shadow-lg" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>Get in Touch</div>
               </div>
             </Link>
           </div>

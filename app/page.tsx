@@ -12,11 +12,11 @@ export default function Home() {
   return (
     <>
       <BottomNav />
-      <div className="nav-home">
+      <div className="nav-home" suppressHydrationWarning>
         <Navbar />
       </div>
-      <div className="body-background"></div>
-      <div className="page-wrapper">
+      <div className="body-background" suppressHydrationWarning></div>
+      <div className="page-wrapper" suppressHydrationWarning>
         <Hero />
         <About />
         <Services />

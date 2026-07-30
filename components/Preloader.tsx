@@ -27,9 +27,10 @@ export default function Preloader() {
         transform: "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
         display: "block",
       }}
+      suppressHydrationWarning
     >
-      <div className="preloader-content">
-        <div className="lottie-animation-2">
+      <div className="preloader-content" suppressHydrationWarning>
+        <div className="lottie-animation-2" suppressHydrationWarning>
           <Lottie
             animationData={loaderAnimation}
             loop={false}
