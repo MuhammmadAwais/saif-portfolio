@@ -30,12 +30,12 @@ export default function Contact() {
   ];
 
   return (
-    <footer id="section-contact" className="section is--footer">
-      <div className="container is--footer">
-        <div className="grid is--body">
+    <footer id="section-contact" className="section is--footer" suppressHydrationWarning>
+      <div className="container is--footer" suppressHydrationWarning>
+        <div className="grid is--body" suppressHydrationWarning>
           {/* Top Section & Fluid Email */}
-          <div className="grid_item is--contact--header">
-            <div className="grid_item is--contact--footer-caption w-full pr-4 md:pr-12">
+          <div className="grid_item is--contact--header" suppressHydrationWarning>
+            <div className="grid_item is--contact--footer-caption w-full pr-4 md:pr-12" suppressHydrationWarning>
               <ScrollReveal as="div">
                 <h2 className="heading">
                   LET&rsquo;S BUILD SOMETHING CINEMATIC.
@@ -84,6 +84,7 @@ export default function Contact() {
               <Link
                 href="/contact"
                 className="group relative inline-flex items-center justify-between gap-6 px-8 py-4 sm:px-10 sm:py-5 bg-white/40 backdrop-blur-md border border-black/20 rounded-full font-sans font-black text-lg sm:text-xl md:text-2xl text-black uppercase tracking-tight shadow-sm hover:bg-black hover:text-white hover:scale-105 transition-all duration-300 active:scale-95"
+                suppressHydrationWarning
               >
                 <span>START A PROJECT</span>
                 <span className="text-xl sm:text-2xl md:text-3xl transition-transform duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5">
@@ -94,17 +95,18 @@ export default function Contact() {
           </div>
 
           {/* Follow Me Section - Original Webflow Grid Layout */}
-          <div className="grid_item is--contact--footer-caption _w-2">
+          <div className="grid_item is--contact--footer-caption _w-2" suppressHydrationWarning>
             <h5 className="heading md:ml-8">FOLLOw&nbsp;ME</h5>
           </div>
-          <div className="grid_item is--contact--footer _w-5">
+          <div className="grid_item is--contact--footer _w-5" suppressHydrationWarning>
             {socialLinks.map((link, index) => (
-              <div key={index} className="link-wrapper">
+              <div key={index} className="link-wrapper" suppressHydrationWarning>
                 <a
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer__link w-inline-block group"
+                  suppressHydrationWarning
                 >
                   <div className="link-wrapper__content">
                     <Image

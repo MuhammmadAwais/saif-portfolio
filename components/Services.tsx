@@ -61,8 +61,9 @@ export default function Services() {
     <section
       id="section-services"
       className="w-full bg-transparent py-20 md:py-32 relative z-10"
+      suppressHydrationWarning
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12" suppressHydrationWarning>
         {/* Editorial Eyebrow Header */}
         <ScrollReveal as="div">
           <div className="mb-12 md:mb-16 flex items-center justify-between border-b border-black/10 pb-6">
@@ -79,7 +80,7 @@ export default function Services() {
         </ScrollReveal>
 
         {/* Editorial Vertical Typographic List */}
-        <div className="flex flex-col w-full border-t border-black/20">
+        <div className="flex flex-col w-full border-t border-black/20" suppressHydrationWarning>
           {SERVICES_DATA.map((service, index) => {
             return (
               <ScrollReveal
@@ -93,6 +94,7 @@ export default function Services() {
                   onMouseLeave={handleMouseLeave}
                   onClick={() => handleRowClick(index)}
                   className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 md:py-8 border-b border-black/20 cursor-pointer select-none transition-colors duration-300"
+                  suppressHydrationWarning
                 >
                   {/* Left Column: Number + Title with Smooth Animated Underline */}
                   <div className="flex items-baseline gap-4 sm:gap-6 md:gap-8 pr-4">
@@ -120,6 +122,8 @@ export default function Services() {
                         href={service.ctaHref}
                         onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-3 px-7 py-3.5 md:px-8 md:py-4 bg-black text-white text-xs md:text-sm font-bold tracking-widest uppercase rounded-full shadow-lg hover:bg-neutral-800 hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                        // Bitdefender injects bis_skin_checked on every <a> tag
+                        suppressHydrationWarning
                       >
                         <span>{service.ctaText}</span>
                         <svg

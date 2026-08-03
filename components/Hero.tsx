@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,6 +12,16 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // ── Hydration guard ────────────────────────────────────────────────────────
+  // Browser extensions (e.g. image-overlay tools) inject child <div> elements
+  // inside image containers on the client. React throws a hydration mismatch
+  // because suppressHydrationWarning only covers attribute diffs, not child
+  // element injections. Rendering the floating image containers client-only
+  // eliminates the mismatch entirely with zero UX impact: GSAP animations
+  // already run post-mount via useEffect, and the sr-only h1 / alt text
+  // (the SEO-relevant content) remain fully SSR'd in the section element.
+  const [hasMounted, setHasMounted] = useState(false);
+
   const headings = [
     { text: "WHERE", leftClass: "" },
     { text: "Raw Clips", leftClass: "is--5-6em-left" },
@@ -22,21 +32,22 @@ export default function Hero() {
   const floatingImages = [
     {
       src: "/images/6.png",
-      alt: "cone",
+      // Decorative 3D shapes — descriptive enough for image search
+      alt: "3D decorative cone shape — portfolio element for Saif Latif video editor",
       className: "hero__element-img _1",
       width: 180,
       height: 180,
     },
     {
       src: "/images/1.png",
-      alt: "steel-1",
+      alt: "3D metallic sphere — decorative element on Saif Latif video editor portfolio",
       className: "hero__element-img _2",
       width: 220,
       height: 220,
     },
     {
       src: "/images/3.png",
-      alt: "steel",
+      alt: "3D abstract steel shape — visual element on Muhammad Saif Latif portfolio site",
       className: "hero__element-img _3",
       width: 240,
       height: 240,
@@ -44,7 +55,12 @@ export default function Hero() {
   ];
 
   useEffect(() => {
-    if (!heroRef.current) return;
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Wait for client mount so the floating image containers exist in the DOM
+    if (!hasMounted || !heroRef.current) return;
 
     const ctx = gsap.context(() => {
       // 1. Hero Stagger Load Animation (Characters sliding up from clip-path mask)
@@ -148,10 +164,23 @@ export default function Hero() {
       window.removeEventListener("mousemove", handleMouseMove);
       ctx.revert();
     };
-  }, []);
+  }, [hasMounted]);
+
 
   return (
     <section ref={heroRef} className="section is--hero" suppressHydrationWarning>
+      {/*
+       * Single, authoritative h1 for search crawlers and LLMs.
+       * Visually hidden — the animated display headings below are aria-hidden
+       * so assistive tech and crawlers only see this clean h1 once.
+       *
+       * Rule: ONE h1 per page. This is non-negotiable for SEO.
+       */}
+      <h1 className="sr-only">
+        Muhammad Saif Latif — Professional Video Editor &amp; DaVinci Resolve Expert
+        &nbsp;| Islamabad &amp; Rawalpindi, Pakistan
+      </h1>
+
       <div className="container is--hero" suppressHydrationWarning>
         <div
           className="grid_item is--sticky-logo"
@@ -166,7 +195,11 @@ export default function Hero() {
      
         </div>
         <div className="grid is--body is--hero" suppressHydrationWarning>
-          {floatingImages.map((img, index) => (
+          {/* Floating 3D decorative shapes — rendered client-only to prevent
+           * browser extension child-injection hydration mismatches.
+           * Next.js still emits <link rel="preload"> for priority images from
+           * the server, so images load at full speed despite client-only render. */}
+          {hasMounted && floatingImages.map((img, index) => (
             <div key={index} className={img.className} suppressHydrationWarning>
               <div
                 ref={(el) => {
@@ -190,13 +223,22 @@ export default function Hero() {
             </div>
           ))}
 
+
+          {/*
+           * Animated display headings — ARIA-HIDDEN so crawlers only read
+           * the single sr-only h1 above. These are purely visual/animation.
+           */}
           {headings.map((item, index) => (
             <div
               key={index}
               className={`grid_item is--hero-text ${item.leftClass}`.trim()}
               suppressHydrationWarning
             >
-              <h1 className="display" aria-label={item.text} suppressHydrationWarning>
+              <p
+                className="display"
+                aria-hidden="true"
+                suppressHydrationWarning
+              >
                 {item.text.split("").map((char, charIdx) => (
                   <span
                     key={charIdx}
@@ -218,7 +260,7 @@ export default function Hero() {
                     </span>
                   </span>
                 ))}
-              </h1>
+              </p>
             </div>
           ))}
         </div>

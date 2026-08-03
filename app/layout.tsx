@@ -10,29 +10,195 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-export const metadata: Metadata = {
-  title: "Editing That Brings Stories to Life",
+// ─── Global JSON-LD Schemas ──────────────────────────────────────────────────
+// These are injected once at the root level and apply to every page.
+// Page-level schemas (VideoObject, etc.) are added in their respective files.
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://saiflatif.me/#person",
+  name: "Muhammad Saif Latif",
+  alternateName: ["Saif Latif", "Saif"],
+  url: "https://saiflatif.me/",
+  image: "https://saiflatif.me/images/tab-logo.png",
+  jobTitle: "Professional Video Editor & DaVinci Resolve Expert",
   description:
-    "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
-  openGraph: {
-    title: "Editing That Brings Stories to Life",
-    description:
-      "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
-    type: "website",
+    "Muhammad Saif Latif is a professional video editor and DaVinci Resolve expert based in Islamabad and Rawalpindi, Pakistan. He specializes in cinematic color grading, post-production, wedding films, luxury real estate tours, and high-end documentaries.",
+  knowsAbout: [
+    "Video Editing",
+    "DaVinci Resolve",
+    "Color Grading",
+    "Post-Production",
+    "Cinematic Editing",
+    "Wedding Films",
+    "Real Estate Video Tours",
+    "Documentary Editing",
+    "Fusion Motion Graphics",
+    "Beat-Sync Editing",
+    "Sound Design",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Islamabad",
+    addressRegion: "Punjab",
+    addressCountry: "PK",
   },
+  sameAs: [
+    "https://saiflatif.me/",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "Freelance",
+  },
+};
+
+const professionalServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://saiflatif.me/#service",
+  name: "Saif Latif — Video Editing & Color Grading Services",
+  url: "https://saiflatif.me/",
+  description:
+    "Professional video editing and DaVinci Resolve color grading services by Muhammad Saif Latif, serving clients in Islamabad, Rawalpindi, and worldwide. Services include cinematic video editing, broadcast-level color grading, luxury real estate tours, wedding film teasers, and high-end documentaries.",
+  founder: {
+    "@id": "https://saiflatif.me/#person",
+  },
+  areaServed: [
+    { "@type": "City", name: "Islamabad" },
+    { "@type": "City", name: "Rawalpindi" },
+    { "@type": "Country", name: "Pakistan" },
+    { "@type": "Text", name: "Worldwide (Remote)" },
+  ],
+  serviceType: [
+    "Cinematic Video Editing",
+    "Professional Color Grading",
+    "DaVinci Resolve Post-Production",
+    "Luxury Real Estate Video Tours",
+    "Wedding Film Teasers",
+    "High-End Documentary Editing",
+  ],
+  priceRange: "$$",
+  image: "https://saiflatif.me/images/tab-logo.png",
+  sameAs: ["https://saiflatif.me/"],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://saiflatif.me/#website",
+  name: "Saif Latif — Professional Video Editor & DaVinci Resolve Expert",
+  url: "https://saiflatif.me/",
+  description:
+    "Portfolio of Muhammad Saif Latif, a professional video editor and DaVinci Resolve expert based in Islamabad, Pakistan.",
+  author: {
+    "@id": "https://saiflatif.me/#person",
+  },
+  inLanguage: "en",
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = {
+  // ── Title ──────────────────────────────────────────────────────────────────
+  // Primary keyword-rich title. The template applies site name suffix to all
+  // child pages that only set metadata.title as a string.
+  title: {
+    default:
+      "Muhammad Saif Latif | Professional Video Editor & DaVinci Resolve Expert — Islamabad",
+    template: "%s | Saif Latif — Video Editor",
+  },
+
+  // ── Description ────────────────────────────────────────────────────────────
+  description:
+    "Muhammad Saif Latif is a professional video editor and DaVinci Resolve expert based in Islamabad & Rawalpindi, Pakistan. Specializing in cinematic color grading, wedding films, luxury real estate tours, and post-production. Available for freelance projects worldwide.",
+
+  // ── Canonical ──────────────────────────────────────────────────────────────
+  alternates: {
+    canonical: "https://saiflatif.me/",
+  },
+
+  // ── Keywords (supplementary — primary signal is on-page content) ───────────
+  keywords: [
+    "Muhammad Saif Latif",
+    "Saif Latif portfolio",
+    "Saif Latif Editor",
+    "Saif Latif DaVinci Resolve expert",
+    "Freelance Video Editor Islamabad",
+    "Video Editor Rawalpindi",
+    "Professional Video Editor Pakistan",
+    "DaVinci Resolve color grading",
+    "Cinematic video editor",
+    "Wedding film editor Pakistan",
+    "Real estate video editor",
+  ],
+
+  // ── Open Graph ─────────────────────────────────────────────────────────────
+  openGraph: {
+    type: "website",
+    url: "https://saiflatif.me/",
+    siteName: "Saif Latif — Video Editor",
+    title:
+      "Muhammad Saif Latif | Professional Video Editor & DaVinci Resolve Expert",
+    description:
+      "Muhammad Saif Latif is a professional video editor and DaVinci Resolve expert based in Islamabad & Rawalpindi, Pakistan. Cinematic color grading, wedding films, luxury real estate tours, and post-production.",
+    images: [
+      {
+        url: "https://saiflatif.me/images/og-cover.png",
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Saif Latif — Professional Video Editor & DaVinci Resolve Expert, Islamabad Pakistan",
+      },
+    ],
+    locale: "en_US",
+  },
+
+  // ── Twitter Card ───────────────────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
-    title: "Editing That Brings Stories to Life",
+    site: "@saiflatif",
+    creator: "@saiflatif",
+    title:
+      "Muhammad Saif Latif | Professional Video Editor & DaVinci Resolve Expert",
     description:
-      "Saif Latif - Dynamic Editor and Colorist. High-impact visual execution, broadcast-level color depth, and sharp visual rhythm.",
-  },
-  icons: {
-    icon: [
-      { url: "/images/tab-logo.png", type: "image/png" },
+      "Muhammad Saif Latif — professional video editor and DaVinci Resolve expert. Islamabad & Rawalpindi, Pakistan. Cinematic editing, color grading, wedding films.",
+    images: [
+      {
+        url: "https://saiflatif.me/images/og-cover.png",
+        alt: "Muhammad Saif Latif — Professional Video Editor & DaVinci Resolve Expert",
+      },
     ],
+  },
+
+  // ── Robots ─────────────────────────────────────────────────────────────────
+  // robots.ts in /app handles the full robots.txt generation.
+  // This object controls the meta robots tag rendered into <head>.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  // ── Icons ──────────────────────────────────────────────────────────────────
+  icons: {
+    icon: [{ url: "/images/tab-logo.png", type: "image/png" }],
     shortcut: "/images/tab-logo.png",
     apple: "/images/tab-logo.png",
   },
+
+  // ── Authors / Publisher ────────────────────────────────────────────────────
+  authors: [{ name: "Muhammad Saif Latif", url: "https://saiflatif.me/" }],
+  creator: "Muhammad Saif Latif",
+  publisher: "Muhammad Saif Latif",
+
+  // ── Category ───────────────────────────────────────────────────────────────
+  category: "Video Production & Post-Production",
 };
 
 export const viewport: Viewport = {
@@ -53,9 +219,62 @@ export default function RootLayout({
       className={`w-mod-js w-mod-ix ${inter.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* ── Browser Extension Hydration Mismatch Sanitizer ─────────────── */}
+        {/* Prevents browser extensions (Bitdefender, Grammarly, AI-detectors) */}
+        {/* from causing Next.js dev overlays due to injected attributes       */}
+        {/* like bis_skin_checked="1" or data-ai-detector-processed="true".    */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (typeof window !== 'undefined' && typeof Element !== 'undefined') {
+                  var ignoreAttrs = ['bis_skin_checked', 'data-ai-detector-processed', 'data-new-gr-c-s-check-loaded', 'data-gr-ext-installed', 'cz-shortcut-listen', 'spellcheck', 'gramm'];
+                  var origSetAttr = Element.prototype.setAttribute;
+                  Element.prototype.setAttribute = function(name, value) {
+                    if (ignoreAttrs.indexOf(name) !== -1) return;
+                    return origSetAttr.call(this, name, value);
+                  };
+                  var origError = console.error;
+                  console.error = function() {
+                    for (var i = 0; i < arguments.length; i++) {
+                      var arg = '' + arguments[i];
+                      if (
+                        (arg.indexOf('bis_skin_checked') !== -1 ||
+                         arg.indexOf('data-ai-detector-processed') !== -1 ||
+                         arg.indexOf('data-new-gr-c-s-check-loaded') !== -1 ||
+                         arg.indexOf('data-gr-ext-installed') !== -1 ||
+                         arg.indexOf('cz-shortcut-listen') !== -1) &&
+                        (arg.indexOf('hydrated') !== -1 || arg.indexOf('Hydration') !== -1 || arg.indexOf('server rendered HTML') !== -1 || arg.indexOf('did not match') !== -1 || arg.indexOf('didn\\'t match') !== -1)
+                      ) {
+                        return;
+                      }
+                    }
+                    return origError.apply(console, arguments);
+                  };
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body data-w-id="5f075927b33f5315850a8719" suppressHydrationWarning>
         {children}
         <Toaster position="top-right" theme="dark" richColors closeButton />
+
+        {/* ── Global Structured Data (JSON-LD) ───────────────────────────── */}
+        {/* Person, ProfessionalService, and WebSite schemas are injected     */}
+        {/* globally so every page crawler pass picks them up immediately.    */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              personSchema,
+              professionalServiceSchema,
+              websiteSchema,
+            ]),
+          }}
+        />
       </body>
     </html>
   );
