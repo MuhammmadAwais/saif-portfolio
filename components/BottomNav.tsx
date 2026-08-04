@@ -12,6 +12,7 @@ export default function BottomNav() {
     { href: "/#section-about-me", label: "About" },
     { href: "/#section-services", label: "Services" },
     { href: "/#section-work", label: "Work" },
+    { href: "/#section-faq", label: "FAQ" },
     { href: "/#section-contact", label: "Contact" },
   ];
 

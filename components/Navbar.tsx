@@ -134,6 +134,16 @@ export default function Navbar() {
               </div>
             </a>
             <a
+              href="/#section-faq"
+              onClick={() => setIsMenuOpen(false)}
+              className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"
+              suppressHydrationWarning
+            >
+              <div className="nav--button menu transition-colors duration-300 hover:bg-black hover:text-white" suppressHydrationWarning>
+                <div className="menu-button--text" suppressHydrationWarning>FAQ</div>
+              </div>
+            </a>
+            <a
               href="/#section-contact"
               onClick={() => setIsMenuOpen(false)}
               className="menu_button nav w-inline-block transition-all duration-300 hover:scale-105"

@@ -55,53 +55,32 @@ export default function ContactPageSection() {
     setLoading(true);
 
     const toastId = toast.loading("Sending your message...", {
-      description: "Connecting to EmailJS server...",
+      description: "Connecting to server...",
     });
 
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
 
-    const isPlaceholder =
-      !serviceId ||
-      !templateId ||
-      !publicKey ||
-      serviceId === "your_service_id_here";
-
     try {
-      if (isPlaceholder) {
-        console.warn(
-          "EmailJS environment variables not configured yet. Set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in .env.local",
-        );
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        toast.success("Message Sent Successfully! ✨", {
-          id: toastId,
-          description:
-            "Thank you for reaching out! (Demo mode: add EmailJS keys to .env.local for live delivery)",
-          duration: 5000,
-        });
-      } else {
-        if (!formRef.current) return;
-        await emailjs.sendForm(
-          serviceId,
-          templateId,
-          formRef.current,
-          publicKey,
-        );
-        toast.success("Message Sent Successfully! ✨", {
-          id: toastId,
-          description:
-            "Thank you for reaching out. Let's build something cinematic together!",
-          duration: 5000,
-        });
+      if (!formRef.current) {
+        toast.error("Form not found", { id: toastId });
+        return;
       }
+      await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
+      toast.success("Message Sent Successfully! ✨", {
+        id: toastId,
+        description:
+          "Thank you for reaching out. Let's build something cinematic together!",
+        duration: 5000,
+      });
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("EmailJS Error:", error);
       toast.error("Failed to Send Message ❌", {
         id: toastId,
         description:
-          "Something went wrong while delivering your message. Please try again or email directly.",
+          "Something went wrong while delivering your message. Please try again or email contact@saiflatif.me directly.",
         duration: 6000,
       });
     } finally {

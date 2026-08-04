@@ -65,42 +65,58 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "What is your DaVinci Resolve color grading workflow?",
+      name: "What software do you use for video editing?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "I use a node-based color grading pipeline in DaVinci Resolve 21 — starting with scene-referred normalization, then primary correction, secondary power windows, qualifier-based skin tone protection, and a final look-development node for cinematic LUT-aware grading. Every project is delivered in the correct color space (Rec.709, DCI-P3, or LOG) based on the client's delivery specification.",
+        text: "I work exclusively in DaVinci Resolve for all projects — a powerful tool for node-based color grading, cinema-quality color science, professional audio engineering, and custom motion design.",
       },
     },
     {
       "@type": "Question",
-      name: "What is the typical turnaround time for YouTube or commercial video projects?",
+      name: "What is included in a complete video edit?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Standard turnaround is 3–5 business days for YouTube edits (up to 15 minutes) and 5–10 business days for commercial or brand videos. Rush delivery within 24–48 hours is available for an additional fee. Timelines are confirmed at project kickoff based on scope and revision rounds.",
+        text: "Full end-to-end post-production: narrative cutting, beat-synced pacing, professional color grading, studio-level sound design and SFX, kinetic subtitles, and formatting optimized for each platform — 16:9 widescreen or 9:16 vertical.",
       },
     },
     {
       "@type": "Question",
-      name: "Are you available for freelance video editing projects in Islamabad and Rawalpindi?",
+      name: "What are your typical turnaround times?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — Muhammad Saif Latif is actively available for freelance video editing and post-production projects in Islamabad, Rawalpindi, and remotely for international clients. You can reach out directly via the contact form or by emailing saiflatifbusiness@gmail.com to discuss your project.",
+        text: "Short-form content (Reels, TikToks, Shorts): 24–48 hours. Long-form content (Real Estate, Weddings, Promos): 3–5 business days. 24-hour rush delivery is available upon request.",
       },
     },
     {
       "@type": "Question",
-      name: "How do you collaborate with remote clients on video editing projects?",
+      name: "How do I send you raw footage?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Remote collaboration is fully streamlined: raw footage is shared via Google Drive, WeTransfer, or Dropbox. A project brief is completed at kickoff to align on tone, pacing references, and deliverables. Review rounds are conducted via Vimeo or a private Google Drive preview link with timestamped feedback. Revisions are delivered within 48 hours per round.",
+        text: "Simply upload your files to Google Drive, Dropbox, WeTransfer, or Frame.io and share the link alongside your project brief or any reference style links.",
       },
     },
     {
       "@type": "Question",
-      name: "What is your policy on raw footage delivery and revision rounds?",
+      name: "How does pricing work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "All packages include 2 revision rounds by default. Additional rounds are available at a fixed per-round rate. Final deliverables are exported in the agreed codec and resolution (H.264/H.265 for web, ProRes for broadcast). Raw project files (.drp) are available as an optional add-on. Client-provided raw footage is retained securely for 30 days post-delivery.",
+        text: "I offer flat, project-based rates customized to your project's length and visual complexity. Complete cost transparency upfront — no hourly tracking, hidden fees, or surprises.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is your revision policy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Every project includes 2 complimentary rounds of revisions to ensure the final edit aligns 100% with your brand vision and expectations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do we handle payments?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Projects begin with a 50% deposit to secure your slot, with the final 50% due upon final video review before unwatermarked delivery.",
       },
     },
   ],

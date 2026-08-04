@@ -8,7 +8,7 @@ import ScrollReveal from "./ScrollReveal";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const emailAddress = "SAIFLATIFBUSINESS@GMAIL.COM";
+  const emailAddress = "CONTACT@SAIFLATIF.ME";
 
   const handleCopyEmail = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ export default function Contact() {
       await navigator.clipboard.writeText(emailAddress);
       setCopied(true);
       toast.success("Email copied to clipboard! ✉️", {
-        description: "SAIFLATIFBUSINESS@GMAIL.COM",
+        description: "CONTACT@SAIFLATIF.ME",
       });
       setTimeout(() => setCopied(false), 3000);
     } catch {
@@ -52,16 +52,16 @@ export default function Contact() {
                   <p
                     className="display is--mail transition-opacity duration-300 group-hover:opacity-80 max-w-full"
                     style={{
-                      fontSize: "clamp(1.1rem, 3.4vw, 4.2rem)",
-                      lineHeight: "1.1",
-                      letterSpacing: "-0.02em",
+                      fontSize: "clamp(1.3rem, 4.2vw, 5rem)",
+                      lineHeight: "1.05",
+                      letterSpacing: "-0.03em",
                       whiteSpace: "nowrap",
                       textTransform: "uppercase",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {copied ? "COPIED!" : "SAIFLATIFBUSINESS@GMAIL.COM"}
+                    {copied ? "COPIED!" : "CONTACT@SAIFLATIF.ME"}
                   </p>
 
                   <div className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-black/60 font-medium">

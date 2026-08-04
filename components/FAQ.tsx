@@ -1,115 +1,185 @@
-"use client";
+﻿"use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ── FAQ Data ──────────────────────────────────────────────────────────────────
-// 5 high-intent Q&As targeting the primary keyword clusters:
-//   - DaVinci Resolve workflow (technical authority)
-//   - Turnaround time (commercial intent)
-//   - Islamabad / Rawalpindi availability (local SEO)
-//   - Remote collaboration (global reach)
-//   - Footage delivery & revisions (trust signal)
-const FAQS = [
+const FAQ_GROUPS = [
   {
-    id: "faq-01",
-    question: "What is your DaVinci Resolve color grading workflow?",
-    answer:
-      "I use a node-based color grading pipeline in DaVinci Resolve 21 — starting with scene-referred normalization, then primary correction, secondary power windows, qualifier-based skin tone protection, and a final look-development node for cinematic LUT-aware grading. Every project is delivered in the correct color space (Rec.709, DCI-P3, or LOG) based on the client's delivery specification.",
+    category: "Software & Services",
+    accent: "#6366f1",
+    items: [
+      {
+        id: "faq-01",
+        question: "What software do you use for video editing?",
+        answer:
+          "All projects are handled inside <strong>DaVinci Resolve</strong>, utilizing node-based color grading, <em>cinema-grade color science</em>, studio audio engineering, and custom motion design.",
+      },
+      {
+        id: "faq-02",
+        question: "What is included in a complete video edit?",
+        answer:
+          "Full end-to-end post-production: <strong>narrative cutting</strong>, beat-synced pacing, <strong>professional color grading</strong>, studio sound design/SFX, <em>kinetic subtitles</em>, and optimized multi-platform formatting (16:9 widescreen or 9:16 vertical).",
+      },
+    ],
   },
   {
-    id: "faq-02",
-    question:
-      "What is the typical turnaround time for YouTube or commercial video projects?",
-    answer:
-      "Standard turnaround is 3–5 business days for YouTube edits (up to 15 minutes) and 5–10 business days for commercial or brand videos. Rush delivery within 24–48 hours is available for an additional fee. Timelines are confirmed at project kickoff based on scope and revision rounds.",
+    category: "Turnaround & Delivery",
+    accent: "#10b981",
+    items: [
+      {
+        id: "faq-03",
+        question: "What are your typical turnaround times?",
+        answerList: [
+          { label: "Short-Form Content", detail: "Reels, TikToks, Shorts", time: "24–48 hours" },
+          { label: "Long-Form Content", detail: "Real Estate, Weddings, Promos", time: "3–5 business days" },
+        ],
+        answerNote: "24-hour rush delivery available upon request for urgent deadlines.",
+      },
+      {
+        id: "faq-04",
+        question: "How do I send you raw footage?",
+        answer:
+          "Simply upload your files to <strong>Google Drive, Dropbox, WeTransfer,</strong> or <strong>Frame.io</strong> and share the link alongside your project brief or reference style links.",
+      },
+    ],
   },
   {
-    id: "faq-03",
-    question:
-      "Are you available for freelance video editing in Islamabad and Rawalpindi?",
-    answer:
-      "Yes — I'm actively available for freelance video editing and post-production projects in Islamabad, Rawalpindi, and remotely for international clients. You can reach out directly via the contact form or by emailing saiflatifbusiness@gmail.com to discuss your project.",
-  },
-  {
-    id: "faq-04",
-    question:
-      "How do you collaborate with remote clients on video editing projects?",
-    answer:
-      "Remote collaboration is fully streamlined: raw footage is shared via Google Drive, WeTransfer, or Dropbox. A project brief is completed at kickoff to align on tone, pacing references, and deliverables. Review rounds are conducted via Vimeo or a private Google Drive preview link with timestamped feedback. Revisions are delivered within 48 hours per round.",
-  },
-  {
-    id: "faq-05",
-    question:
-      "What is your policy on raw footage delivery and revision rounds?",
-    answer:
-      "All packages include 2 revision rounds by default. Additional rounds are available at a fixed per-round rate. Final deliverables are exported in the agreed codec and resolution (H.264/H.265 for web, ProRes for broadcast). Raw project files (.drp) are available as an optional add-on. Client-provided raw footage is retained securely for 30 days post-delivery.",
+    category: "Pricing, Revisions & Terms",
+    accent: "#f59e0b",
+    items: [
+      {
+        id: "faq-05",
+        question: "How does pricing work?",
+        answer:
+          "I offer <strong>flat, project-based rates</strong> customized to your project&#39;s length and visual complexity. Complete cost transparency upfront &#8212; <em>no hourly tracking, hidden fees, or surprises.</em>",
+      },
+      {
+        id: "faq-06",
+        question: "What is your revision policy?",
+        answer:
+          "Every project includes <strong>2 complimentary rounds of revisions</strong> to ensure the final edit aligns 100% with your brand vision and expectations.",
+      },
+      {
+        id: "faq-07",
+        question: "How do we handle payments?",
+        answer:
+          "Projects begin with a <strong>50% deposit</strong> to secure your schedule slot, with the final 50% due upon final video review before unwatermarked delivery.",
+      },
+    ],
   },
 ];
 
-// ── Single FAQ Item ───────────────────────────────────────────────────────────
+type FAQItemData = {
+  id: string;
+  question: string;
+  answer?: string;
+  answerList?: { label: string; detail: string; time: string }[];
+  answerNote?: string;
+};
+
+// ── Single accordion item ─────────────────────────────────────────────────────
 function FAQItem({
   item,
   isOpen,
   onToggle,
+  accentColor,
 }: {
-  item: (typeof FAQS)[0];
+  item: FAQItemData;
   isOpen: boolean;
   onToggle: () => void;
+  accentColor: string;
 }) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!panelRef.current) return;
+    if (isOpen) {
+      gsap.fromTo(
+        panelRef.current,
+        { maxHeight: 0, opacity: 0, y: -6 },
+        { maxHeight: 500, opacity: 1, y: 0, duration: 0.48, ease: "power3.out" }
+      );
+    } else {
+      gsap.to(panelRef.current, {
+        maxHeight: 0,
+        opacity: 0,
+        y: -4,
+        duration: 0.32,
+        ease: "power3.in",
+      });
+    }
+  }, [isOpen]);
+
   return (
-    <div
-      className="border-b border-black/15 last:border-b-0"
-      suppressHydrationWarning
-    >
+    <div className={`faq-item${isOpen ? " faq-item--open" : ""}`}>
       <button
-        type="button"
         id={item.id}
+        type="button"
         aria-expanded={isOpen}
-        aria-controls={`${item.id}-answer`}
+        aria-controls={`${item.id}-panel`}
         onClick={onToggle}
-        className="w-full flex items-start justify-between gap-6 py-7 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:ring-offset-2 rounded-sm"
+        className="faq-question-btn"
         suppressHydrationWarning
       >
-        {/* Question — h3 for correct heading hierarchy below the h2 section title */}
-        <h3 className="font-sans text-base sm:text-lg md:text-xl font-semibold tracking-tight text-black leading-snug transition-colors duration-200 group-hover:text-black/70">
+        <span className={`faq-question-text${isOpen ? " faq-question-text--open" : ""}`}>
           {item.question}
-        </h3>
-
-        {/* Animated plus / minus icon */}
+        </span>
         <span
-          className="flex-shrink-0 mt-0.5 w-6 h-6 flex items-center justify-center rounded-full border border-black/20 transition-all duration-300 group-hover:border-black/50"
+          className={`faq-toggle-icon${isOpen ? " faq-toggle-icon--open" : ""}`}
           aria-hidden="true"
         >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          >
-            <line x1="6" y1="1" x2="6" y2="11" className={`transition-all duration-300 ${isOpen ? "opacity-0 scale-y-0" : "opacity-100 scale-y-100"}`} />
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            <line x1="6" y1="1" x2="6" y2="11" />
             <line x1="1" y1="6" x2="11" y2="6" />
           </svg>
         </span>
       </button>
 
-      {/* Answer panel — CSS height transition for smooth accordion */}
       <div
-        id={`${item.id}-answer`}
+        ref={panelRef}
+        id={`${item.id}-panel`}
         role="region"
         aria-labelledby={item.id}
-        style={{
-          maxHeight: isOpen ? "600px" : "0px",
-          overflow: "hidden",
-          transition: "max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1)",
-        }}
+        style={{ maxHeight: 0, overflow: "hidden", opacity: 0 }}
         suppressHydrationWarning
       >
-        <p className="pb-8 pr-10 font-sans text-sm sm:text-base text-black/60 leading-relaxed">
-          {item.answer}
-        </p>
+        <div className="faq-answer-body">
+          {item.answer && (
+            <p
+              className="faq-answer-text"
+              dangerouslySetInnerHTML={{ __html: item.answer }}
+            />
+          )}
+          {item.answerList && (
+            <ul className="faq-answer-list">
+              {item.answerList.map((row) => (
+                <li key={row.label} className="faq-answer-list-item">
+                  <div className="faq-answer-list-left">
+                    <span className="faq-answer-list-dot" style={{ background: accentColor }} />
+                    <div>
+                      <span className="faq-answer-list-label">{row.label}</span>
+                      <span className="faq-answer-list-detail"> &mdash; {row.detail}</span>
+                    </div>
+                  </div>
+                  <span className="faq-answer-list-time" style={{ color: accentColor }}>
+                    {row.time}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {item.answerNote && (
+            <p className="faq-answer-note">
+              <em>{item.answerNote}</em>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -118,60 +188,245 @@ function FAQItem({
 // ── FAQ Section ───────────────────────────────────────────────────────────────
 export default function FAQ() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
-  const toggle = (id: string) => {
+  const toggle = (id: string) =>
     setOpenId((prev) => (prev === id ? null : id));
-  };
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      if (leftRef.current) {
+        gsap.from(leftRef.current, {
+          x: -52,
+          opacity: 0,
+          duration: 1.05,
+          ease: "power4.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 82%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      if (rightRef.current) {
+        gsap.from(rightRef.current, {
+          x: 52,
+          opacity: 0,
+          duration: 1.05,
+          ease: "power4.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 82%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      const items = rightRef.current?.querySelectorAll(".faq-item");
+      if (items && items.length > 0) {
+        gsap.from(items, {
+          y: 22,
+          opacity: 0,
+          duration: 0.55,
+          stagger: 0.075,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: rightRef.current,
+            start: "top 86%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      if (ctaRef.current) {
+        gsap.from(ctaRef.current, {
+          y: 28,
+          opacity: 0,
+          duration: 0.75,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 92%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      if (headingRef.current) {
+        const lines = headingRef.current.querySelectorAll(".faq-heading-line");
+        gsap.from(lines, {
+          y: 32,
+          opacity: 0,
+          duration: 0.68,
+          stagger: 0.13,
+          ease: "power3.out",
+          clearProps: "all",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="section-faq"
+      ref={sectionRef}
       aria-labelledby="faq-heading"
-      className="w-full bg-transparent py-20 md:py-32 relative z-10"
+      className="faq-section"
       suppressHydrationWarning
     >
-      <div className="max-w-4xl mx-auto px-6 md:px-12" suppressHydrationWarning>
-        {/* Section header — matching the editorial monochrome site aesthetic */}
-        <div className="mb-12 md:mb-16 flex items-center justify-between border-b border-black/10 pb-6">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-black inline-block" />
-            <h2
-              id="faq-heading"
-              className="font-mono text-xs md:text-sm tracking-[0.25em] text-neutral-900 uppercase font-semibold"
-            >
+      {/* SEO entity anchor — visually hidden, crawler/AI readable */}
+      <p className="sr-only">
+        Muhammad Saif Latif is a freelance video editor and DaVinci Resolve expert
+        based in Islamabad and Rawalpindi, Pakistan. Available for cinematic editing,
+        color grading, and post-production worldwide.
+      </p>
+
+      <div className="faq-container">
+
+        {/* ── Main Section Header Block ── */}
+        <div className="faq-header-block mb-8">
+          <div className="faq-header-eyebrow">
+            <span className="faq-header-dot" />
+            <span className="faq-header-kicker ">Got A Question?</span>
+          </div>
+          <div className="faq-header-title-row">
+            <h2 id="faq-heading" className="faq-main-title">
               Frequently Asked Questions
             </h2>
+
           </div>
-          <span className="font-mono text-xs md:text-sm tracking-widest text-black/40 uppercase hidden sm:inline-block">
-            [ FAQ ]
-          </span>
         </div>
 
-        {/* FAQ accordion list */}
-        <div
-          className="divide-y divide-black/15 border-t border-black/15"
-          suppressHydrationWarning
-        >
-          {FAQS.map((item) => (
-            <FAQItem
-              key={item.id}
-              item={item}
-              isOpen={openId === item.id}
-              onToggle={() => toggle(item.id)}
-            />
-          ))}
-        </div>
+        {/* Two-column grid */}
+        <div className="faq-grid">
 
-        {/* Inline entity-dense footer — visible to crawlers and AI parsers */}
-        <p className="mt-12 font-mono text-xs text-black/40 leading-relaxed max-w-2xl">
-          Muhammad Saif Latif is a freelance video editor and{" "}
-          <span className="font-semibold text-black/60">DaVinci Resolve</span>{" "}
-          expert based in{" "}
-          <span className="font-semibold text-black/60">Islamabad</span> and{" "}
-          <span className="font-semibold text-black/60">Rawalpindi</span>,
-          Pakistan. Available for cinematic editing, color grading, and
-          post-production projects worldwide.
-        </p>
+          {/* Left column */}
+          <div ref={leftRef} className="faq-left-col" suppressHydrationWarning>
+
+            {/* Image card with hover animation */}
+            <div className="faq-image-outer">
+              <div className="faq-corner faq-corner-tl" />
+              <div className="faq-corner faq-corner-br" />
+              <div className="faq-image-ring" />
+
+              <div className="faq-image-wrap">
+                <Image
+                  src="/images/FAQ-custom.png"
+                  alt="Saif Latif — DaVinci Resolve professional editing workstation"
+                  width={900}
+                  height={900}
+                  className="faq-image"
+                  loading="lazy"
+                />
+                <div className="faq-image-overlay" />
+                <div className="faq-image-badge">
+                  <span className="faq-badge-dot" />
+                  <span className="faq-badge-text">DaVinci Resolve Studio</span>
+                </div>
+              </div>
+
+              <div className="faq-stat-badge">
+                <p className="faq-stat-label">Client Satisfaction</p>
+                <p className="faq-stat-value">100%</p>
+              </div>
+            </div>
+
+            {/* Editorial heading / Ask away block */}
+            <div className="faq-heading-block" ref={headingRef}>
+              <p className="faq-heading-eyebrow">
+                <span className="faq-heading-eyebrow-line" />
+                Got a question?
+              </p>
+              <div className="faq-heading-main">
+                <span className="faq-heading-line faq-heading-ask">
+                  Ask away<span className="faq-heading-period">.</span>
+                </span>
+              </div>
+              <p className="faq-heading-sub">
+                Everything you need to know about working with me &mdash; from
+                workflow and software to pricing and delivery.
+              </p>
+              <Link href="/contact" className="faq-mini-cta" suppressHydrationWarning>
+                <span>Start a project</span>
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+                <span className="faq-mini-cta-underline" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right column */}
+          <div ref={rightRef} className="faq-right-col" suppressHydrationWarning>
+
+            <div className="faq-groups">
+              {FAQ_GROUPS.map((group) => (
+                <div key={group.category} className="faq-group">
+                  <div className="faq-category-header">
+                    <span
+                      className="faq-category-accent"
+                      style={{ background: group.accent }}
+                    />
+                    <span className="faq-category-label">{group.category}</span>
+                  </div>
+                  <div className="faq-group-items">
+                    {group.items.map((item) => (
+                      <FAQItem
+                        key={item.id}
+                        item={item}
+                        isOpen={openId === item.id}
+                        onToggle={() => toggle(item.id)}
+                        accentColor={group.accent}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Block */}
+            <div ref={ctaRef} className="faq-cta-block" suppressHydrationWarning>
+              <div className="faq-cta-content">
+                <p className="faq-cta-eyebrow">Ready to collaborate?</p>
+                <p className="faq-cta-heading">
+                  Let&apos;s bring your vision to life.
+                </p>
+                <p className="faq-cta-sub">
+                  No obligations &mdash; just a straightforward conversation about your project.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="faq-cta-btn"
+                suppressHydrationWarning
+              >
+                <span>Get in Touch</span>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </Link>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
   );
