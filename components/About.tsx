@@ -72,24 +72,24 @@ export default function About() {
               {/* Part 1 Paragraph - Same styling as original body text */}
               {/* Primary identified heading — visible to crawlers and LLMs */}
               <h2 id="about-heading" className="about-heading">Hi, I&rsquo;m Saif Latif.</h2>
-              <p className="about-body-text" style={{ marginBottom: "32px" }}>
+               <p className="about-body-text" style={{ marginBottom: "32px" }}>
                  I turn raw footage into{" "}
                 <span className="editorial-highlight">
-                  <strong>cinematic assets</strong>
+                  <span className="font-bold">cinematic assets</span>
                 </span>{" "}
                 that <em>demand attention</em>. I shape{" "}
                 <span className="editorial-highlight">
-                  <strong>frame-accurate pacing</strong>
+                  <span className="font-bold">frame-accurate pacing</span>
                 </span>
                 ,{" "}
                 <span className="editorial-highlight">
-                  <strong>broadcast-level color depth</strong>
+                  <span className="font-bold">broadcast-level color depth</span>
                 </span>
                 , and <em>sharp visual rhythm</em> to ensure your message lands perfectly. I know
                 exactly what hooks an audience and how to make a video cut through the noise.
                 If you want a reliable creative partner for{" "}
                 <span className="editorial-highlight">
-                  <strong>top-tier visual storytelling</strong>
+                  <span className="font-bold">top-tier visual storytelling</span>
                 </span>
                 , you&apos;re in the right place.
               </p>
@@ -189,7 +189,7 @@ export default function About() {
                 <span className="editorial-focal-bar editorial-focal-bar-right" />
 
                 <p className="about-editorial-text-lg">
-                  My focus is simple: <strong>high-impact execution</strong>. From{" "}
+                  My focus is simple: <span className="font-bold">high-impact execution</span>. From{" "}
                   <span className="editorial-highlight">
                     <em>luxury property tours</em>
                   </span>{" "}
@@ -199,11 +199,11 @@ export default function About() {
                   </span>{" "}
                   to{" "}
                   <span className="editorial-highlight">
-                    <strong>high-end documentaries</strong>
+                    <span className="font-bold">high-end documentaries</span>
                   </span>
                   , I build polished visual experiences that keep viewers{" "}
                   <span className="editorial-highlight">
-                    <strong>locked in</strong>
+                    <span className="font-bold">locked in</span>
                   </span>{" "}
                   until the very last frame.
                 </p>
@@ -222,11 +222,11 @@ export default function About() {
                 <p className="about-editorial-text-md">
                   I bring{" "}
                   <span className="editorial-highlight">
-                    <strong>technical mastery</strong>
+                    <span className="font-bold">technical mastery</span>
                   </span>{" "}
                   and a <em>director&apos;s eye</em> to every cut, guaranteeing a{" "}
                   <span className="editorial-highlight">
-                    <strong>seamless workflow</strong>
+                    <span className="font-bold">seamless workflow</span>
                   </span>{" "}
                   and relentless{" "}
                   <span className="editorial-highlight">
@@ -238,7 +238,7 @@ export default function About() {
                     className="about-scroll-trigger"
                     suppressHydrationWarning
                   >
-                    <strong>scroll down to check out the work</strong>
+                    <span className="font-bold">scroll down to check out the work</span>
                     <span className="about-scroll-trigger-arrow">&darr;</span>
                   </a>
                   .

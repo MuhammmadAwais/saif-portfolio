@@ -49,7 +49,7 @@ export default function Contact() {
                   className="footer-email w-inline-block text-left bg-transparent border-none p-0 cursor-pointer focus:outline-none w-full max-w-full group my-2 overflow-hidden"
                   title="Click to copy email address"
                 >
-                  <h1
+                  <p
                     className="display is--mail transition-opacity duration-300 group-hover:opacity-80 max-w-full"
                     style={{
                       fontSize: "clamp(1.1rem, 3.4vw, 4.2rem)",
@@ -62,7 +62,7 @@ export default function Contact() {
                     }}
                   >
                     {copied ? "COPIED!" : "SAIFLATIFBUSINESS@GMAIL.COM"}
-                  </h1>
+                  </p>
 
                   <div className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-black/60 font-medium">
                     <span

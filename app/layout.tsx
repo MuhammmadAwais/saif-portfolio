@@ -101,18 +101,17 @@ const websiteSchema = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  // ── Title ──────────────────────────────────────────────────────────────────
-  // Primary keyword-rich title. The template applies site name suffix to all
-  // child pages that only set metadata.title as a string.
+  // ── Title (≤55 chars / ~550px) ─────────────────────────────────────────────
+  // 51 chars — within Google's recommended pixel limit.
   title: {
-    default:
-      "Muhammad Saif Latif | Professional Video Editor & DaVinci Resolve Expert — Islamabad",
-    template: "%s | Saif Latif — Video Editor",
+    default: "Muhammad Saif Latif | Video Editor & DaVinci Expert",
+    template: "%s | Saif Latif",
   },
 
-  // ── Description ────────────────────────────────────────────────────────────
+  // ── Description (≤150 chars / ~950px) ─────────────────────────────────────
+  // 130 chars — well within Google's recommended pixel limit.
   description:
-    "Muhammad Saif Latif is a professional video editor and DaVinci Resolve expert based in Islamabad & Rawalpindi, Pakistan. Specializing in cinematic color grading, wedding films, luxury real estate tours, and post-production. Available for freelance projects worldwide.",
+    "Professional video editor in Islamabad & Rawalpindi. Specializing in cinematic color grading, wedding films, and post-production.",
 
   // ── Canonical ──────────────────────────────────────────────────────────────
   alternates: {
@@ -187,10 +186,18 @@ export const metadata: Metadata = {
   },
 
   // ── Icons ──────────────────────────────────────────────────────────────────
+  // Next.js App Router file convention: app/icon.png → auto-served as
+  // /icon.png with the correct Link rel="icon" headers.
+  // Google requires favicons to be a multiple of 48px for mobile SERPs.
+  // We provide 192×192 (icon.png) and 48×48 (favicon.png) to satisfy both
+  // the 192px Google mobile requirement and the 48px minimum grid.
   icons: {
-    icon: [{ url: "/images/tab-logo.png", type: "image/png" }],
-    shortcut: "/images/tab-logo.png",
-    apple: "/images/tab-logo.png",
+    icon: [
+      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: { url: "/icon.png", type: "image/png" },
+    apple: { url: "/icon.png", sizes: "192x192", type: "image/png" },
   },
 
   // ── Authors / Publisher ────────────────────────────────────────────────────
