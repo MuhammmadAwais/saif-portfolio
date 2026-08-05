@@ -5,6 +5,7 @@ import BottomNav from "@/components/BottomNav";
 import Preloader from "@/components/Preloader";
 import ContactPageSection from "@/components/contact-page/ContactPageSection";
 import Contact from "@/components/Contact";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   // Uses the layout.tsx title template: "%s | Saif Latif — Video Editor"
@@ -75,7 +76,8 @@ export default function ContactPage() {
       <Preloader />
 
       {/* Page-level JSON-LD: ContactPage + BreadcrumbList */}
-      <script
+      <Script
+        id="contact-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([contactPageSchema, breadcrumbSchema]),

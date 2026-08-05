@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "@/reference/css/portfolio-rk.webflow.5dc738e00.min.css";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -228,43 +229,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* ── Browser Extension Hydration Mismatch Sanitizer ─────────────── */}
-        {/* Prevents browser extensions (Bitdefender, Grammarly, AI-detectors) */}
-        {/* from causing Next.js dev overlays due to injected attributes       */}
-        {/* like bis_skin_checked="1" or data-ai-detector-processed="true".    */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof window !== 'undefined' && typeof Element !== 'undefined') {
-                  var ignoreAttrs = ['bis_skin_checked', 'data-ai-detector-processed', 'data-new-gr-c-s-check-loaded', 'data-gr-ext-installed', 'cz-shortcut-listen', 'spellcheck', 'gramm'];
-                  var origSetAttr = Element.prototype.setAttribute;
-                  Element.prototype.setAttribute = function(name, value) {
-                    if (ignoreAttrs.indexOf(name) !== -1) return;
-                    return origSetAttr.call(this, name, value);
-                  };
-                  var origError = console.error;
-                  console.error = function() {
-                    for (var i = 0; i < arguments.length; i++) {
-                      var arg = '' + arguments[i];
-                      if (
-                        (arg.indexOf('bis_skin_checked') !== -1 ||
-                         arg.indexOf('data-ai-detector-processed') !== -1 ||
-                         arg.indexOf('data-new-gr-c-s-check-loaded') !== -1 ||
-                         arg.indexOf('data-gr-ext-installed') !== -1 ||
-                         arg.indexOf('cz-shortcut-listen') !== -1) &&
-                        (arg.indexOf('hydrated') !== -1 || arg.indexOf('Hydration') !== -1 || arg.indexOf('server rendered HTML') !== -1 || arg.indexOf('did not match') !== -1 || arg.indexOf('didn\\'t match') !== -1)
-                      ) {
-                        return;
-                      }
-                    }
-                    return origError.apply(console, arguments);
-                  };
-                }
-              })();
-            `,
-          }}
-        />
       </head>
       <body data-w-id="5f075927b33f5315850a8719" suppressHydrationWarning>
         {children}
@@ -273,7 +237,8 @@ export default function RootLayout({
         {/* ── Global Structured Data (JSON-LD) ───────────────────────────── */}
         {/* Person, ProfessionalService, and WebSite schemas are injected     */}
         {/* globally so every page crawler pass picks them up immediately.    */}
-        <script
+        <Script
+          id="global-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([
@@ -283,8 +248,8 @@ export default function RootLayout({
             ]),
           }}
         />
+        <GoogleAnalytics gaId="G-0QXEB91049" />
       </body>
-      <GoogleAnalytics gaId="G-0QXEB91049" />
     </html>
   );
 }

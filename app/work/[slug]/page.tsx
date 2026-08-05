@@ -7,6 +7,7 @@ import BottomNav from "@/components/BottomNav";
 import Preloader from "@/components/Preloader";
 import Contact from "@/components/Contact";
 import CaseStudyView from "@/components/case-study/CaseStudyView";
+import Script from "next/script";
 
 interface PageProps {
   params: Promise<{
@@ -167,7 +168,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <Preloader />
 
       {/* Page-level JSON-LD: VideoObject + BreadcrumbList */}
-      <script
+      <Script
+        id="case-study-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([videoObjectSchema, breadcrumbSchema]),

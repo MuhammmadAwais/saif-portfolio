@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import React from "react";
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Services from "@/components/Services";
-import Work from "@/components/Work";
-import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import Preloader from "@/components/Preloader";
+import Script from "next/script";
+
+// ── Lazy Loaded Components (Below the fold) ──────────────────────────────────
+const Services = dynamic(() => import("@/components/Services"), { ssr: true });
+const Work = dynamic(() => import("@/components/Work"), { ssr: true });
+const FAQ = dynamic(() => import("@/components/FAQ"), { ssr: true });
+const Contact = dynamic(() => import("@/components/Contact"), { ssr: true });
 
 // ── Homepage metadata overrides the root layout defaults ─────────────────────
 // Title: 51 chars — within Google's ~550px limit
@@ -149,13 +153,15 @@ export default function Home() {
       <Preloader />
 
       {/* Page-level JSON-LD: BreadcrumbList */}
-      <script
+      <Script
+        id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* Page-level JSON-LD: FAQPage */}
-      <script
+      <Script
+        id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />

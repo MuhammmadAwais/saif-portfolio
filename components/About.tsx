@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from "react";
+import { preload } from "react-dom";
 import ScrollReveal from "./ScrollReveal";
 import { CASE_STUDIES } from "@/data/caseStudies";
 
@@ -22,6 +23,9 @@ export default function About() {
       toggleMute();
     }
   };
+
+  // Tell the browser to aggressively fetch the video as soon as this component renders
+  preload(videoSrc, { as: "video", fetchPriority: "high" });
 
   return (
     <section id="section-about-me" className="about-section" aria-labelledby="about-heading" suppressHydrationWarning>
@@ -121,7 +125,7 @@ export default function About() {
                   loop
                   muted
                   playsInline
-                  preload="none"
+                  preload="auto"
                   className="about-video-el"
                 />
 
