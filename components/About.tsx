@@ -6,15 +6,8 @@ import { CASE_STUDIES } from "@/data/caseStudies";
 
 export default function About() {
   const [isMuted, setIsMuted] = useState(true);
-  const [videoSrc, setVideoSrc] = useState(CASE_STUDIES[0].videoUrl);
+  const videoSrc = CASE_STUDIES[0].videoUrl;
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handleVideoError = useCallback(() => {
-    if (videoSrc !== "/videos/showreel.mp4") {
-      console.warn("Vercel Blob URL failed in About - switching to clutch fallback /videos/showreel.mp4");
-      setVideoSrc("/videos/showreel.mp4");
-    }
-  }, [videoSrc]);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -124,7 +117,6 @@ export default function About() {
                 <video
                   ref={videoRef}
                   src={videoSrc}
-                  onError={handleVideoError}
                   autoPlay
                   loop
                   muted

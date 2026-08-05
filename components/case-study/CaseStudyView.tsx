@@ -29,7 +29,6 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
   const nextProjectRef = useRef<HTMLDivElement>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [activeVideoSrc, setActiveVideoSrc] = useState(caseStudy.videoUrl);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
@@ -38,16 +37,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
   const [isHoveringVideo, setIsHoveringVideo] = useState(false);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    setActiveVideoSrc(caseStudy.videoUrl);
-  }, [caseStudy.videoUrl]);
 
-  const handleVideoError = useCallback(() => {
-    if (caseStudy.fallbackVideoUrl && activeVideoSrc !== caseStudy.fallbackVideoUrl) {
-      console.warn("Vercel Blob URL error - activating clutch fallback to:", caseStudy.fallbackVideoUrl);
-      setActiveVideoSrc(caseStudy.fallbackVideoUrl);
-    }
-  }, [caseStudy.fallbackVideoUrl, activeVideoSrc]);
 
   const triggerControlsVisibility = useCallback(() => {
     setIsHoveringVideo(true);
@@ -389,8 +379,7 @@ export default function CaseStudyView({ caseStudy }: CaseStudyViewProps) {
           {/* HTML5 Video Element */}
           <video
             ref={videoRef}
-            src={activeVideoSrc}
-            onError={handleVideoError}
+            src={caseStudy.videoUrl}
             poster={caseStudy.thumbnailUrl}
             preload="metadata"
             playsInline
