@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
@@ -333,6 +333,7 @@ export default function FAQ() {
                   alt="Saif Latif — DaVinci Resolve professional editing workstation"
                   width={900}
                   height={900}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="faq-image"
                   loading="lazy"
                 />

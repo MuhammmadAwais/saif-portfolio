@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Navbar from "@/components/Navbar";
@@ -133,7 +134,16 @@ export default function Home() {
       <div className="nav-home" suppressHydrationWarning>
         <Navbar />
       </div>
-      <div className="body-background" suppressHydrationWarning></div>
+      <div className="body-background" suppressHydrationWarning>
+        <Image
+          src="/images/60c4796ac9ed75badcfb3f2f_group-204.png"
+          alt="Background Texture"
+          fill
+          priority
+          quality={75}
+          style={{ objectFit: "cover", zIndex: -1 }}
+        />
+      </div>
 
       {/*
        * Semantic page wrapper:

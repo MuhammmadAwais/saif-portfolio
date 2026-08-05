@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
-import { preload } from "react-dom";
+import React, { useState, useRef, useEffect } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { CASE_STUDIES } from "@/data/caseStudies";
 
@@ -24,8 +23,25 @@ export default function About() {
     }
   };
 
-  // Tell the browser to aggressively fetch the video as soon as this component renders
-  preload(videoSrc, { as: "video", fetchPriority: "high" });
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px" }
+    );
+    
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="section-about-me" className="about-section" aria-labelledby="about-heading" suppressHydrationWarning>
@@ -120,12 +136,12 @@ export default function About() {
               >
                 <video
                   ref={videoRef}
-                  src={videoSrc}
+                  src={shouldLoadVideo ? videoSrc : undefined}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="none"
                   className="about-video-el"
                 />
 
