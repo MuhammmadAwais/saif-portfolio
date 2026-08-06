@@ -12,7 +12,6 @@ export default function CaseStudyNotFound() {
       <div className="nav-home">
         <Navbar />
       </div>
-      <div className="body-background"></div>
       <div className="page-wrapper min-h-screen flex flex-col justify-between">
         <div className="flex-1 flex items-center justify-center py-20 px-4 relative z-10">
           <div className="max-w-xl w-full mx-auto text-center bg-neutral-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-10 md:p-14 shadow-2xl">

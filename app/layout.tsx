@@ -5,6 +5,7 @@ import "@/reference/css/portfolio-rk.webflow.5dc738e00.min.css";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
+import Image from "next/image";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -231,6 +232,16 @@ export default function RootLayout({
       <head>
       </head>
       <body data-w-id="5f075927b33f5315850a8719" suppressHydrationWarning>
+        <div className="body-background" suppressHydrationWarning>
+          <Image
+            src="/images/60c4796ac9ed75badcfb3f2f_group-204.png"
+            alt="Background Texture"
+            fill
+            priority
+            quality={75}
+            style={{ objectFit: "cover", zIndex: -1 }}
+          />
+        </div>
         {children}
         <Toaster position="top-right" theme="dark" richColors closeButton />
 

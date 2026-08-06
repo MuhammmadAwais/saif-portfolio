@@ -68,7 +68,6 @@ export default function ContactPage() {
       <div className="nav-home">
         <Navbar />
       </div>
-      <div className="body-background"></div>
       <main className="page-wrapper min-h-screen">
         <ContactPageSection />
         <Contact />

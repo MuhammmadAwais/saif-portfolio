@@ -160,7 +160,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <div className="nav-home">
         <Navbar />
       </div>
-      <div className="body-background"></div>
       <main className="page-wrapper min-h-screen">
         <CaseStudyView caseStudy={caseStudy} />
         <Contact />
