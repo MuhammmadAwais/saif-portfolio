@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "@/reference/css/portfolio-rk.webflow.5dc738e00.min.css";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import Image from "next/image";
 
@@ -260,6 +261,7 @@ export default function RootLayout({
           }}
         />
         <GoogleAnalytics gaId="G-0QXEB91049" />
+        <Analytics />
       </body>
     </html>
   );
