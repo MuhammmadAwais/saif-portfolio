@@ -29,6 +29,7 @@ export default function ScrollReveal({
         delay,
       }}
       className={className}
+      suppressHydrationWarning
     >
       {children}
     </Component>

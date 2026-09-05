@@ -188,6 +188,7 @@ function FAQItem({
 // ── FAQ Section ───────────────────────────────────────────────────────────────
 export default function FAQ() {
   const [openId, setOpenId] = useState<string | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -196,6 +197,10 @@ export default function FAQ() {
 
   const toggle = (id: string) =>
     setOpenId((prev) => (prev === id ? null : id));
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -322,31 +327,45 @@ export default function FAQ() {
           <div ref={leftRef} className="faq-left-col" suppressHydrationWarning>
 
             {/* Image card with hover animation */}
-            <div className="faq-image-outer">
-              <div className="faq-corner faq-corner-tl" />
-              <div className="faq-corner faq-corner-br" />
-              <div className="faq-image-ring" />
+            <div className="faq-image-outer" suppressHydrationWarning>
+              <div className="faq-corner faq-corner-tl" suppressHydrationWarning />
+              <div className="faq-corner faq-corner-br" suppressHydrationWarning />
+              <div className="faq-image-ring" suppressHydrationWarning />
 
-              <div className="faq-image-wrap">
-                <Image
-                  src="/images/FAQ-custom.png"
-                  alt="Saif Latif — DaVinci Resolve professional editing workstation"
-                  width={900}
-                  height={900}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="faq-image"
-                  loading="lazy"
-                />
-                <div className="faq-image-overlay" />
-                <div className="faq-image-badge">
-                  <span className="faq-badge-dot" />
-                  <span className="faq-badge-text">DaVinci Resolve Studio</span>
+              {/* Image wrapper rendered client-only: Browser extensions (Bitdefender,
+                * AI-detectors, image overlays) inject a position:absolute child div
+                * inside containers holding images. suppressHydrationWarning cannot
+                * suppress element-child mismatches — only client-only render can. */}
+              {hasMounted ? (
+                <div className="faq-image-wrap" suppressHydrationWarning>
+                  <Image
+                    src="/images/FAQ-custom.png"
+                    alt="Saif Latif — DaVinci Resolve professional editing workstation"
+                    width={900}
+                    height={900}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="faq-image"
+                    loading="lazy"
+                    suppressHydrationWarning
+                  />
+                  <div className="faq-image-overlay" suppressHydrationWarning />
+                  <div className="faq-image-badge" suppressHydrationWarning>
+                    <span className="faq-badge-dot" suppressHydrationWarning />
+                    <span className="faq-badge-text" suppressHydrationWarning>DaVinci Resolve Studio</span>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div
+                  className="faq-image-wrap"
+                  style={{ opacity: 0 }}
+                  aria-hidden="true"
+                  suppressHydrationWarning
+                />
+              )}
 
-              <div className="faq-stat-badge">
-                <p className="faq-stat-label">Client Satisfaction</p>
-                <p className="faq-stat-value">100%</p>
+              <div className="faq-stat-badge" suppressHydrationWarning>
+                <p className="faq-stat-label" suppressHydrationWarning>Client Satisfaction</p>
+                <p className="faq-stat-value" suppressHydrationWarning>100%</p>
               </div>
             </div>
 

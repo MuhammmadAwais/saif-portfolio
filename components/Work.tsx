@@ -221,15 +221,16 @@ export default function Work() {
                     className="project-img-wrapper overflow-hidden rounded-xl"
                     style={{ opacity: 0, minHeight: "1px" }}
                     aria-hidden="true"
+                    suppressHydrationWarning
                   />
                 )}
               </div>
               <div className="grid_item is--project__text-content" suppressHydrationWarning>
                 <div className="case__content-top" suppressHydrationWarning>
                   <div className="is--pb-0-83em" suppressHydrationWarning>
-                    <p className="is--caption text-black/60">{project.caption}</p>
+                    <p className="is--caption text-black/60" suppressHydrationWarning>{project.caption}</p>
                   </div>
-                  <h2 className="text-black transition-colors duration-300 group-hover:text-neutral-700">
+                  <h2 className="text-black transition-colors duration-300 group-hover:text-neutral-700" suppressHydrationWarning>
                     {project.title}
                   </h2>
                 </div>
@@ -241,8 +242,9 @@ export default function Work() {
                     height={16}
                     className="footer-link__arrow left transition-transform duration-300 group-hover:translate-x-1"
                     loading="lazy"
+                    suppressHydrationWarning
                   />
-                  <div className="text-block text-neutral-900 font-medium">
+                  <div className="text-block text-neutral-900 font-medium" suppressHydrationWarning>
                     View Case Study
                   </div>
                   <Image
@@ -252,6 +254,7 @@ export default function Work() {
                     height={16}
                     className="footer-link__arrow transition-transform duration-300 group-hover:translate-x-1"
                     loading="lazy"
+                    suppressHydrationWarning
                   />
                 </div>
               </div>

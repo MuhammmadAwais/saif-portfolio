@@ -126,6 +126,20 @@ const faqSchema = {
   ],
 };
 
+// ── VideoObject JSON-LD schema (Showreel) ────────────────────────────────────
+const showreelSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "Saif Latif — High-Velocity Post-Production Showreel",
+  description:
+    "Official video editing and DaVinci Resolve color grading showreel by Muhammad Saif Latif, professional video editor based in Islamabad, Pakistan.",
+  thumbnailUrl: ["https://saiflatif.me/images/projects/showreel.png"],
+  uploadDate: "2026-01-01T00:00:00+05:00",
+  contentUrl:
+    "https://saiflatif.me/api/video?pathname=https://b6yk0mmj0fw8dfck.private.blob.vercel-storage.com/2026%20Video%20Editor%20Showreel%20COMPRESSED.mp4",
+  embedUrl: "https://saiflatif.me/#section-about-me",
+};
+
 export default function Home() {
   return (
     <>
@@ -163,6 +177,13 @@ export default function Home() {
         id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      {/* Page-level JSON-LD: VideoObject (Showreel) */}
+      <Script
+        id="showreel-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(showreelSchema) }}
       />
     </>
   );
